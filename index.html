@@ -12,7 +12,7 @@
 
     <style>
         /* =========================================================
-           MAC OS / IOS THEME VARIABLES (Synced with App)
+           MAC OS / IOS THEME VARIABLES
         ========================================================= */
         :root {
             color-scheme: dark;
@@ -25,8 +25,6 @@
             --border-subtle: rgba(255, 255, 255, 0.18);
             --text-main: #ffffff;
             --text-muted: #b0b0b8;
-            --btn-primary: #ffffff;
-            --btn-text: #000000;
             --shadow-glass: 0 10px 40px rgba(0, 0, 0, 0.5);
 
             /* Gradient Mesh */
@@ -47,12 +45,10 @@
             --bg-base: #e5e5ea;
             --surface-glass: rgba(255, 255, 255, 0.85);
             --surface-glass-hover: rgba(255, 255, 255, 1);
-            --border-subtle: rgba(0, 0, 0, 0.12);
+            --border-subtle: rgba(0, 0, 0, 0.15);
             --text-main: #000000;
             --text-muted: #555555;
-            --btn-primary: #000000;
-            --btn-text: #ffffff;
-            --shadow-glass: 0 8px 30px rgba(0, 0, 0, 0.1);
+            --shadow-glass: 0 8px 30px rgba(0, 0, 0, 0.08);
 
             --mesh-1: rgba(191, 130, 255, 0.25);
             --mesh-2: rgba(100, 180, 255, 0.25);
@@ -115,6 +111,82 @@
         }
 
         /* =========================================================
+           TOP NAVIGATION
+        ========================================================= */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: rgba(var(--bg-base), 0.1);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo svg {
+            color: var(--brand-purple);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-purple);
+        }
+
+        .theme-switch {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            color: var(--text-main);
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.05);
+            background: var(--surface-glass-hover);
+        }
+
+        .theme-switch:active {
+            transform: scale(0.95);
+        }
+
+        /* =========================================================
            HERO & MESH GRADIENT
         ========================================================= */
         .hero-bg {
@@ -122,15 +194,15 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 70vh;
+            height: 80vh;
             z-index: 0;
             pointer-events: none;
             background:
                 radial-gradient(ellipse at 15% 0%, var(--mesh-1) 0%, transparent 65%),
                 radial-gradient(ellipse at 85% 15%, var(--mesh-2) 0%, transparent 65%),
                 radial-gradient(ellipse at 50% 40%, var(--mesh-3) 0%, transparent 70%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
             transition: background 0.4s ease;
         }
 
@@ -142,7 +214,7 @@
         }
 
         .sym-1 {
-            top: 12%;
+            top: 18%;
             left: 12%;
             width: 60px;
             height: 60px;
@@ -151,7 +223,7 @@
         }
 
         .sym-2 {
-            top: 28%;
+            top: 32%;
             right: 10%;
             width: 85px;
             height: 85px;
@@ -160,7 +232,7 @@
         }
 
         .sym-3 {
-            top: 40%;
+            top: 45%;
             left: 8%;
             width: 35px;
             height: 35px;
@@ -169,41 +241,11 @@
         }
 
         .sym-4 {
-            top: 16%;
+            top: 20%;
             right: 26%;
             width: 45px;
             height: 45px;
             transform: rotate(20deg);
-        }
-
-        .theme-switch {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: var(--surface-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 50px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-            color: var(--text-main);
-            box-shadow: var(--shadow-glass);
-            z-index: 50;
-        }
-
-        .theme-switch:hover {
-            transform: scale(1.05);
-            background: var(--surface-glass-hover);
-        }
-
-        .theme-switch:active {
-            transform: scale(0.95);
         }
 
         /* =========================================================
@@ -223,19 +265,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 100px 24px 60px;
+            padding: 140px 24px 60px;
             position: relative;
             z-index: 10;
         }
 
         .section-auto {
-            padding: 80px 24px;
+            padding: 100px 24px;
             position: relative;
             z-index: 10;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             width: 100%;
             margin: 0 auto;
         }
@@ -256,26 +298,27 @@
         }
 
         .hero-app-name {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--brand-purple);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            line-height: 1.05;
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            line-height: 1.1;
             margin-bottom: 20px;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto 40px auto;
+            line-height: 1.6;
         }
 
         /* =========================================================
@@ -286,7 +329,7 @@
             flex-direction: column;
             align-items: center;
             gap: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .btn-download {
@@ -294,21 +337,22 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background-color: var(--btn-primary);
-            color: var(--btn-text);
+            background-color: var(--brand-purple);
+            color: #ffffff !important;
             text-decoration: none;
             padding: 18px 40px;
             border-radius: 20px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(179, 112, 252, 0.4);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .btn-download:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 30px rgba(179, 112, 252, 0.6);
+            background-color: #c891ff;
         }
 
         .btn-download:active {
@@ -425,7 +469,7 @@
             border-radius: 12px;
             background: rgba(179, 112, 252, 0.15);
             border: 1px solid rgba(179, 112, 252, 0.3);
-            color: #bf5af2;
+            color: var(--brand-purple);
         }
 
         .release-file-icon svg {
@@ -457,21 +501,22 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 500;
         }
 
         .release-current {
             background: rgba(14, 207, 125, 0.15);
             color: var(--brand-green);
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 20px;
             font-size: 0.7rem;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
         }
 
         .release-download {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -480,6 +525,7 @@
             background: rgba(128, 128, 128, 0.15);
             color: var(--text-main);
             text-decoration: none;
+            border: 1px solid var(--border-subtle);
             transition: all 0.2s ease;
         }
 
@@ -487,13 +533,14 @@
             background: var(--text-main);
             color: var(--bg-base);
             transform: scale(1.05);
+            border-color: transparent;
         }
 
         /* =========================================================
-           CSS APP PREVIEW MOCKUP (No Images Needed)
+           CSS APP PREVIEW (FULLY VISIBLE & POPULATED)
         ========================================================= */
         .app-preview-container {
-            margin-top: 60px;
+            margin-top: 40px;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -508,47 +555,147 @@
             -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid var(--border-subtle);
             border-radius: 24px;
-            padding: 32px;
-            box-shadow: var(--shadow-glass);
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             animation: float 6s ease-in-out infinite;
+            text-align: left;
         }
 
         .mock-header {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .mock-header svg {
             color: var(--text-main);
-            margin-bottom: 10px;
-            opacity: 0.8;
+            width: 28px;
+            height: 28px;
+        }
+
+        .mock-header strong {
+            font-size: 24px;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
         .mock-drop {
-            height: 120px;
+            height: 140px;
             border: 2px dashed var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(128, 128, 128, 0.05);
+        }
+
+        .mock-drop svg {
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+        }
+
+        .mock-drop span {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .mock-drop b {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .mock-options-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .mock-opt-box {
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 18px 20px;
+            background: rgba(128, 128, 128, 0.05);
+        }
+
+        .mock-label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        /* Simulated Radio Buttons */
+        .mock-radio {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .mock-radio:last-child {
+            margin-bottom: 0;
+        }
+
+        .mock-circle {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--brand-green);
         }
 
+        .mock-circle.active {
+            border-color: var(--brand-purple);
+        }
+
+        .mock-circle.active::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--brand-purple);
+            border-radius: 50%;
+        }
+
+        /* Simulated Dropdown */
+        .mock-select {
+            background: rgba(128, 128, 128, 0.15);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mock Extract Button */
         .mock-btn {
-            height: 48px;
             background: var(--text-main);
-            border-radius: 14px;
-            width: 100%;
-            opacity: 0.9;
-        }
-
-        .mock-player {
-            height: 40px;
-            background: rgba(128, 128, 128, 0.2);
-            border-radius: 10px;
-            width: 100%;
-            margin-top: 10px;
+            color: var(--bg-base);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         @keyframes float {
@@ -566,7 +713,7 @@
         }
 
         /* =========================================================
-           TUTORIAL / HOW IT WORKS
+           CARDS (TUTORIAL & FEATURES)
         ========================================================= */
         .tutorial-grid,
         .features-grid {
@@ -614,7 +761,7 @@
             justify-content: center;
             margin-bottom: 24px;
             background: rgba(179, 112, 252, 0.15);
-            color: #bf5af2;
+            color: var(--brand-purple);
         }
 
         .card-icon.green {
@@ -640,11 +787,13 @@
         .glass-card h3 {
             font-size: 1.4rem;
             margin-bottom: 12px;
+            color: var(--text-main);
         }
 
         .glass-card p {
             font-size: 1rem;
             color: var(--text-muted);
+            line-height: 1.6;
         }
 
         /* =========================================================
@@ -672,26 +821,28 @@
         }
 
         .showcase-text h3 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 16px;
             color: var(--text-main);
         }
 
         .showcase-text p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
+            line-height: 1.7;
         }
 
         .mock-dropdown {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             background: var(--surface-glass);
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 12px;
             box-shadow: var(--shadow-glass);
             transform: rotate(-3deg);
             transition: transform 0.4s ease;
+            backdrop-filter: blur(40px);
         }
 
         .showcase-visual:hover .mock-dropdown {
@@ -699,11 +850,11 @@
         }
 
         .mock-option {
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border-radius: 12px;
             margin-bottom: 8px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .mock-opt-1 {
@@ -713,8 +864,54 @@
         }
 
         .mock-opt-2 {
-            background: rgba(128, 128, 128, 0.1);
+            background: transparent;
             color: var(--text-main);
+        }
+
+        /* =========================================================
+           FAQ SECTION (NEW)
+        ========================================================= */
+        .faq-item {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item summary {
+            padding: 20px 24px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--brand-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item p {
+            padding: 0 24px 24px;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
 
         /* =========================================================
@@ -741,7 +938,7 @@
             font-size: 1.15rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .notice-box p {
@@ -752,17 +949,20 @@
         footer {
             text-align: center;
             padding: 60px 24px;
-            opacity: 0.7;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 40px;
         }
 
         footer p {
             font-size: 0.85rem;
             max-width: 700px;
             margin: 0 auto;
+            color: var(--text-muted);
+            opacity: 0.8;
         }
 
         /* =========================================================
-           ANIMATIONS
+           ANIMATIONS & MOBILE RESPONSIVENESS
         ========================================================= */
         .fade-up {
             opacity: 0;
@@ -776,12 +976,26 @@
         }
 
         @media (max-width: 768px) {
+            .top-nav {
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            /* Hide text links on mobile */
             .section {
-                padding-top: 120px;
+                padding-top: 140px;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+
+            .mock-options-row {
+                grid-template-columns: 1fr;
             }
 
             .showcase-row,
@@ -790,11 +1004,6 @@
                 text-align: center;
                 gap: 40px;
                 margin-bottom: 80px;
-            }
-
-            .theme-switch {
-                top: 16px;
-                right: 16px;
             }
         }
     </style>
@@ -828,38 +1037,47 @@
         </svg>
     </div>
 
-    <!-- THEME TOGGLE -->
-    <button class="theme-switch" id="theme-toggle" aria-label="Toggle Theme">
-        <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2"></path>
-            <path d="M12 20v2"></path>
-            <path d="m4.93 4.93 1.41 1.41"></path>
-            <path d="m17.66 17.66 1.41 1.41"></path>
-            <path d="M2 12h2"></path>
-            <path d="M20 12h2"></path>
-            <path d="m6.34 17.66-1.41 1.41"></path>
-            <path d="m19.07 4.93-1.41 1.41"></path>
-        </svg>
-    </button>
+    <!-- TOP NAVIGATION -->
+    <nav class="top-nav fade-up">
+        <a href="#" class="nav-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="6" height="10" x="9" y="7" rx="2" />
+                <path d="M4 22V2" />
+                <path d="M20 22V2" />
+            </svg>
+            <span>Isolix</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#specs">Tech Specs</a>
+            <a href="#faq">FAQ</a>
+            <!-- THEME TOGGLE -->
+            <button class="theme-switch" id="theme-toggle" aria-label="Toggle Theme">
+                <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
 
     <!-- HERO SECTION -->
     <section class="section hero">
         <div class="container fade-up">
-            <div class="hero-logo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="6" height="10" x="9" y="7" rx="2" />
-                    <path d="M4 22V2" />
-                    <path d="M20 22V2" />
-                </svg>
-            </div>
 
             <h2 class="hero-app-name">Isolix</h2>
             <h1>Studio-Grade Stem Separation.</h1>
             <p>The sleek, intelligent, and fully local media tool for professionals. Extract vocals, drums, bass, and
-                instruments seamlessly without cloud limits.</p>
+                instruments seamlessly without cloud limits or subscriptions.</p>
 
             <div class="download-actions">
                 <a href="#" class="btn-download">
@@ -891,7 +1109,7 @@
                             <div class="release-info">
                                 <div class="release-name">isolix_v2.0.0.exe</div>
                                 <div class="release-meta">
-                                    <span>245 MB</span> • <span>Latest</span> <span
+                                    <span>245 MB</span> • <span>Latest Release</span> <span
                                         class="release-current">Current</span>
                                 </div>
                             </div>
@@ -905,7 +1123,7 @@
                         <!-- Release V1 -->
                         <div class="release-card">
                             <div class="release-file-icon"
-                                style="color:var(--text-muted); border-color:var(--border-subtle); background:transparent;">
+                                style="color:var(--text-muted); border-color:var(--border-subtle); background:rgba(128,128,128,0.05);">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                     <path d="M14 2v6h6" />
@@ -914,7 +1132,7 @@
                             <div class="release-info">
                                 <div class="release-name">isolix_v1.0.0.exe</div>
                                 <div class="release-meta">
-                                    <span>240 MB</span> • <span>Previous release</span>
+                                    <span>240 MB</span> • <span>Previous Release</span>
                                 </div>
                             </div>
                             <a href="#" class="release-download"><svg viewBox="0 0 24 24">
@@ -927,33 +1145,62 @@
                 </div>
             </div>
 
-            <!-- CSS APP PREVIEW (No image required) -->
+            <!-- CSS APP PREVIEW (FULLY VISIBLE TEXT AND ICONS) -->
             <div class="app-preview-container fade-up">
                 <div class="css-app-mockup">
                     <div class="mock-header">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <rect width="6" height="10" x="9" y="7" rx="2" />
                             <path d="M4 22V2" />
                             <path d="M20 22V2" />
                         </svg>
                         <strong>Isolix</strong>
                     </div>
-                    <div class="mock-drop">Click to upload audio file</div>
-                    <div style="display: flex; gap:16px;">
-                        <div style="flex:1; height:60px; border:1px solid var(--border-subtle); border-radius:12px;">
+
+                    <div class="mock-drop">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <span><b>Click to upload</b> or drag an audio file here</span>
+                    </div>
+
+                    <div class="mock-options-row">
+                        <!-- Mock Radio Buttons -->
+                        <div class="mock-opt-box">
+                            <span class="mock-label">Separation Mode</span>
+                            <div class="mock-radio">
+                                <div class="mock-circle active"></div> Vocals + Instrumental
+                            </div>
+                            <div class="mock-radio" style="color:var(--text-muted);">
+                                <div class="mock-circle"></div> 6 Stems
+                            </div>
                         </div>
-                        <div style="flex:1; height:60px; border:1px solid var(--border-subtle); border-radius:12px;">
+
+                        <!-- Mock Dropdown -->
+                        <div class="mock-opt-box">
+                            <span class="mock-label">Output Format</span>
+                            <div class="mock-select">
+                                FLAC — Lossless
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                    <div class="mock-btn"></div>
+
+                    <div class="mock-btn">Extract Audio Stems</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="section-auto">
+    <section id="features" class="section-auto">
         <div class="container">
             <h2 class="section-title fade-up">How It Works</h2>
             <div class="tutorial-grid">
@@ -995,7 +1242,7 @@
         </div>
     </section>
 
-    <!-- SHOWCASE SECTION (CSS Mockups instead of images) -->
+    <!-- SHOWCASE SECTION -->
     <section class="section-auto">
         <div class="container">
             <!-- Format Selection -->
@@ -1019,19 +1266,19 @@
                 <div class="showcase-visual">
                     <div style="width:100%; max-width:320px; display:flex; flex-direction:column; gap:12px;">
                         <div
-                            style="padding:12px; border-radius:12px; border:1px solid var(--brand-purple); background:rgba(179,112,252,0.1); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between;">
+                            style="padding:14px 18px; border-radius:16px; border:1px solid var(--brand-purple); background:rgba(179,112,252,0.1); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 4px 15px rgba(179,112,252,0.1);">
                             Vocals <span
-                                style="font-size:10px; padding:2px 8px; background:#bf5af2; border-radius:10px; color:#fff;">READY</span>
+                                style="font-size:10px; padding:4px 10px; background:#bf5af2; border-radius:10px; color:#fff;">READY</span>
                         </div>
                         <div
-                            style="padding:12px; border-radius:12px; border:1px solid var(--border-subtle); background:var(--surface-glass); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between;">
+                            style="padding:14px 18px; border-radius:16px; border:1px solid var(--border-subtle); background:var(--surface-glass); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between; align-items:center; box-shadow: var(--shadow-glass);">
                             Drums <span
-                                style="font-size:10px; padding:2px 8px; background:rgba(128,128,128,0.2); border-radius:10px;">READY</span>
+                                style="font-size:10px; padding:4px 10px; background:rgba(128,128,128,0.2); border-radius:10px;">READY</span>
                         </div>
                         <div
-                            style="padding:12px; border-radius:12px; border:1px solid var(--border-subtle); background:var(--surface-glass); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between;">
+                            style="padding:14px 18px; border-radius:16px; border:1px solid var(--border-subtle); background:var(--surface-glass); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between; align-items:center; box-shadow: var(--shadow-glass);">
                             Bass <span
-                                style="font-size:10px; padding:2px 8px; background:rgba(128,128,128,0.2); border-radius:10px;">READY</span>
+                                style="font-size:10px; padding:4px 10px; background:rgba(128,128,128,0.2); border-radius:10px;">READY</span>
                         </div>
                     </div>
                 </div>
@@ -1044,28 +1291,94 @@
         </div>
     </section>
 
+    <!-- TECH SPECS SECTION -->
+    <section id="specs" class="section-auto">
+        <div class="container">
+            <h2 class="section-title fade-up">Engineered for Performance</h2>
+            <div class="features-grid">
+                <div class="glass-card fade-up">
+                    <div class="card-icon"><svg viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg></div>
+                    <h3>Optimized for Windows</h3>
+                    <p>Runs smoothly on Windows 10 and 11. Designed to be highly efficient, running perfectly on
+                        standard everyday processors and hardware configurations.</p>
+                </div>
+                <div class="glass-card fade-up">
+                    <div class="card-icon blue"><svg viewBox="0 0 24 24">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg></div>
+                    <h3>No Subscriptions</h3>
+                    <p>Buy once or use for free forever. You aren't charged per minute of audio processed because Isolix
+                        uses your own machine's computing power.</p>
+                </div>
+                <div class="glass-card fade-up">
+                    <div class="card-icon green"><svg viewBox="0 0 24 24">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                            <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                        </svg></div>
+                    <h3>Memory Efficient</h3>
+                    <p>The core engine scales dynamically based on your available RAM. Smooth and fast processing is
+                        guaranteed on systems with 8GB or more memory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="section-auto">
+        <div class="container">
+            <h2 class="section-title fade-up">Frequently Asked Questions</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <details class="faq-item fade-up">
+                    <summary>Do I need an active internet connection to use Isolix?</summary>
+                    <p>No! Once you download the application and its bundled models, Isolix runs 100% offline on your
+                        local machine. No tracking, no uploads, absolute privacy.</p>
+                </details>
+                <details class="faq-item fade-up">
+                    <summary>What audio formats are supported for uploading?</summary>
+                    <p>Isolix supports all major audio formats including MP3, WAV, FLAC, AAC, OGG, and M4A. If your OS
+                        can play it, Isolix can likely split it.</p>
+                </details>
+                <details class="faq-item fade-up">
+                    <summary>How long does it take to process a song?</summary>
+                    <p>Processing time depends purely on your computer's CPU and RAM. On a standard modern Intel i5
+                        processor with adequate RAM, a standard 3-minute song typically takes less than 2 minutes to
+                        separate.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
     <!-- NOTICES -->
     <section class="section-auto">
         <div class="container fade-up">
             <div class="notice-box">
                 <h4>
-                    <svg style="width:20px;height:20px;fill:var(--brand-purple);" viewBox="0 0 24 24">
+                    <svg style="width:22px;height:22px;fill:var(--brand-purple);" viewBox="0 0 24 24">
                         <path
                             d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
                     </svg>
-                    100% Local & Private Architecture
+                    Security & Architecture Notice
                 </h4>
-                <p>Isolix processes everything entirely on your local machine. No audio files are ever uploaded to a
-                    remote server, ensuring your unreleased tracks and private sessions stay strictly on your hard
-                    drive. Because this is an independent software tool, you may see a "Windows Protects Your PC" screen
-                    on the first launch. Click "More Info" and "Run Anyway".</p>
+                <p>Isolix is an independent, locally-hosted application. Because it is developed independently rather
+                    than by a massive registered corporation, it does not carry a paid digital Microsoft signature. As a
+                    result, Windows Defender or web browsers may occasionally display an "unrecognized app" warning.
+                    This is entirely normal for unsigned software. To open the app, simply click <strong>"More
+                        info"</strong> and then <strong>"Run anyway"</strong>.</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Isolix. Crafted for audio professionals.</p>
+        <p><strong>Legal & Fair Use Disclaimer:</strong> Isolix acts strictly as an offline audio manipulation tool. We
+            do not host, bypass DRM, or distribute any copyrighted media. By using this tool, you take full personal and
+            legal responsibility for the files you process and save. Please respect copyright laws and only process
+            content you have the legal right to alter.</p>
+        <p style="margin-top: 24px; font-weight: 600;">&copy; 2026 Isolix Audio Tools. Built with purpose.</p>
     </footer>
 
     <!-- JAVASCRIPT -->
@@ -1127,6 +1440,18 @@
 
             document.querySelectorAll(".fade-up").forEach(element => {
                 observer.observe(element);
+            });
+
+            // Allow clicking outside FAQ to close (optional nice-to-have UI)
+            const details = document.querySelectorAll("details");
+            details.forEach((targetDetail) => {
+                targetDetail.addEventListener("click", () => {
+                    details.forEach((detail) => {
+                        if (detail !== targetDetail) {
+                            detail.removeAttribute("open");
+                        }
+                    });
+                });
             });
         });
 
