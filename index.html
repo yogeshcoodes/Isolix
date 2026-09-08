@@ -12,7 +12,7 @@
 
     <style>
         /* =========================================================
-           GLOBAL RESET & THEME VARIABLES
+            GLOBAL RESET & THEME VARIABLES
         ========================================================= */
         :root {
             color-scheme: dark;
@@ -53,9 +53,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, 
+            BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
             scroll-behavior: smooth;
+            user-select: none;
+            transition: all 0.5s ease;
         }
 
         html,
@@ -93,7 +96,7 @@
         }
 
         /* =========================================================
-           RICH COLORED BACKGROUND MESH
+            RICH COLORED BACKGROUND MESH
         ========================================================= */
         .hero-bg {
             position: absolute;
@@ -153,7 +156,7 @@
         }
 
         /* =========================================================
-           TYPOGRAPHY & LAYOUT
+            TYPOGRAPHY & LAYOUT
         ========================================================= */
         h1,
         h2,
@@ -165,24 +168,24 @@
         }
 
         .section {
-            min-height: 100dvh;
+            min-height: 85dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 80px 24px 60px;
+            padding: 60px 24px 40px;
             position: relative;
             z-index: 10;
         }
 
         .section-auto {
-            padding: 100px 24px;
+            padding: 80px 24px;
             position: relative;
             z-index: 10;
         }
 
         .section-notice {
-            padding: 60px 24px 20px 24px;
+            padding: 40px 24px 20px 24px;
             position: relative;
             z-index: 10;
         }
@@ -195,60 +198,60 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             font-size: clamp(2rem, 4vw, 2.5rem);
         }
 
         /* =========================================================
-           HERO SECTION
+            HERO SECTION
         ========================================================= */
         .hero {
             text-align: center;
-            padding-top: 120px;
+            padding-top: 40px;
         }
 
         .hero-logo-svg {
             display: block;
-            margin: 0 auto 16px auto;
-            width: 72px;
-            height: 72px;
+            margin: 0 auto 12px auto;
+            width: 64px;
+            height: 64px;
             color: var(--text-main);
             filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
         }
 
         .hero-app-name {
-            font-size: 1.75rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
             line-height: 1.15;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            font-size: clamp(1.05rem, 2vw, 1.2rem);
             color: var(--text-muted);
             max-width: 620px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 35px auto;
             line-height: 1.6;
         }
 
         /* =========================================================
-           BUTTONS & DOWNLOAD
+            BUTTONS & DOWNLOAD
         ========================================================= */
         .download-actions {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 18px;
-            margin-bottom: 60px;
+            gap: 16px;
+            margin-bottom: 45px;
             width: 100%;
         }
 
@@ -260,7 +263,7 @@
             background-color: var(--btn-bg);
             color: var(--btn-text) !important;
             text-decoration: none;
-            padding: 18px 40px;
+            padding: 17px 38px;
             border-radius: 20px;
             font-size: 1.1rem;
             font-weight: 700;
@@ -323,7 +326,7 @@
         }
 
         /* =========================================================
-           RELEASE HISTORY
+            RELEASE HISTORY
         ========================================================= */
         .release-history {
             width: min(100%, 620px);
@@ -344,13 +347,13 @@
             min-height: 0;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
             padding-top: 0;
             transition: padding-top 0.4s ease;
         }
 
         .release-history.open .release-history-inner {
-            padding-top: 16px;
+            padding-top: 14px;
         }
 
         .release-card {
@@ -362,7 +365,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
             border-radius: 18px;
-            padding: 16px;
+            padding: 14px 16px;
             text-align: left;
             box-shadow: var(--shadow-glass);
             transform: translateY(-10px);
@@ -382,8 +385,8 @@
         }
 
         .release-file-icon {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -401,8 +404,8 @@
         }
 
         .release-file-icon svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             fill: none;
             stroke: currentColor;
             stroke-width: 2;
@@ -420,7 +423,7 @@
             color: var(--text-main);
             font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -438,7 +441,7 @@
         .release-current {
             background-color: rgba(16, 185, 129, 0.15);
             color: var(--brand-green);
-            padding: 3px 10px;
+            padding: 2px 9px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 800;
@@ -446,8 +449,8 @@
         }
 
         .release-download {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -468,8 +471,8 @@
         }
 
         .release-download svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: none;
             stroke: currentColor;
             stroke-width: 2;
@@ -478,26 +481,45 @@
         }
 
         /* =========================================================
-           IMAGE APP PREVIEW
+            IMAGE APP PREVIEW
         ========================================================= */
         .app-preview-container {
-            margin-top: 60px;
+            margin-top: 45px;
             width: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
             perspective: 1000px;
         }
 
         .app-preview {
             width: 100%;
-            max-width: 850px;
+            max-width: 780px;
             height: auto;
             object-fit: contain;
             background: transparent;
             border: none;
-            border-radius: 24px;
+            border-radius: 22px;
             animation: float 6s ease-in-out infinite;
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+        }
+
+        .preview-tab {
+            display: block;
+        }
+        
+        .preview-phone {
+            display: none;
+            max-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .preview-tab {
+                display: none;
+            }
+            .preview-phone {
+                display: block;
+            }
         }
 
         @keyframes float {
@@ -506,7 +528,7 @@
             }
 
             50% {
-                transform: translateY(-16px);
+                transform: translateY(-14px);
             }
 
             100% {
@@ -515,7 +537,7 @@
         }
 
         /* =========================================================
-           CARDS (TUTORIAL & FEATURES)
+            CARDS (TUTORIAL & FEATURES)
         ========================================================= */
         .tutorial-grid,
         .features-grid {
@@ -530,8 +552,8 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
-            padding: 40px 32px;
-            border-radius: 24px;
+            padding: 36px 28px;
+            border-radius: 22px;
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-glass);
@@ -566,7 +588,6 @@
             border-color: rgba(59, 130, 246, 0.4);
         }
 
-        /* Keep the card hover fade working with the scroll-reveal class. */
         .glass-card.fade-up {
             transition:
                 opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -578,9 +599,9 @@
 
         .step-number {
             position: absolute;
-            top: -20px;
+            top: -18px;
             right: -10px;
-            font-size: 8rem;
+            font-size: 7.5rem;
             font-weight: 800;
             color: rgba(255, 255, 255, 0.02);
             line-height: 1;
@@ -588,13 +609,13 @@
         }
 
         .card-icon {
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
 
         .card-icon.indigo {
@@ -633,7 +654,7 @@
         }
 
         .glass-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 12px;
         }
 
@@ -644,13 +665,13 @@
         }
 
         /* =========================================================
-           SHOWCASE MOCKUPS & RESPONSIVE PREVIEWS
+            SHOWCASE MOCKUPS & RESPONSIVE PREVIEWS
         ========================================================= */
         .showcase-row {
             display: flex;
             align-items: center;
-            gap: 80px;
-            margin-bottom: 100px;
+            gap: 60px;
+            margin-bottom: 80px;
             width: 100%;
         }
 
@@ -671,14 +692,14 @@
         }
 
         .showcase-text h3 {
-            font-size: 2.2rem;
-            margin-bottom: 16px;
+            font-size: 2rem;
+            margin-bottom: 14px;
         }
 
         .showcase-text p {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            line-height: 1.7;
+            line-height: 1.65;
         }
 
         /* Dropdown Format Preview */
@@ -748,7 +769,7 @@
         }
 
         .stem-row {
-            padding: 16px 20px;
+            padding: 15px 18px;
             border-radius: 16px;
             border: 1px solid var(--border-subtle);
             background-color: var(--surface-glass);
@@ -800,7 +821,7 @@
         }
 
         /* =========================================================
-           FAQ SECTION
+            FAQ SECTION
         ========================================================= */
         .faq-item {
             background-color: var(--surface-glass);
@@ -820,7 +841,6 @@
             box-shadow: var(--shadow-glass);
         }
 
-        /* Same fix for FAQ items, which also use .fade-up for reveal animation. */
         .faq-item.fade-up {
             transition:
                 opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -831,7 +851,7 @@
         }
 
         .faq-item summary {
-            padding: 20px 24px;
+            padding: 18px 24px;
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-main);
@@ -865,14 +885,14 @@
         }
 
         /* =========================================================
-           SECURITY & FOOTER
+            SECURITY & FOOTER
         ========================================================= */
         .notice-box {
             max-width: 800px;
             margin: 0 auto 20px auto;
             background-color: var(--surface-glass);
             backdrop-filter: blur(20px);
-            padding: 32px;
+            padding: 30px;
             border-radius: 20px;
             border-left: 4px solid var(--brand-blue);
             text-align: left;
@@ -907,7 +927,7 @@
 
         footer {
             text-align: center;
-            padding: 20px 24px 60px 24px;
+            padding: 20px 24px 50px 24px;
             margin-top: 0;
             border-top: none;
         }
@@ -921,7 +941,7 @@
         }
 
         /* =========================================================
-           ANIMATIONS & MOBILE RESPONSIVENESS
+            ANIMATIONS & MOBILE RESPONSIVENESS
         ========================================================= */
         .fade-up {
             opacity: 0;
@@ -936,23 +956,23 @@
 
         @media (max-width: 768px) {
             .section {
-                padding-top: 60px;
+                padding-top: 50px;
             }
 
             .hero {
-                padding-top: 80px;
+                padding-top: 30px;
             }
 
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.6rem;
             }
 
             .showcase-row,
             .showcase-row.reverse {
                 flex-direction: column;
                 text-align: center;
-                gap: 50px;
-                margin-bottom: 80px;
+                gap: 40px;
+                margin-bottom: 60px;
             }
 
             .showcase-text {
@@ -964,7 +984,7 @@
             }
 
             .section-notice {
-                padding: 40px 16px 20px 16px;
+                padding: 30px 16px 20px 16px;
             }
         }
     </style>
@@ -1113,9 +1133,10 @@
                 </div>
             </div>
 
-            <!-- Responsive Image Preview -->
+            <!-- Responsive Image Preview (Tab & Phone) -->
             <div class="app-preview-container fade-up">
-                <img src="./preview.png" alt="Isolix Application Interface" class="app-preview">
+                <img src="./preview-tab.png" alt="Isolix Application Tablet Interface" class="app-preview preview-tab">
+                <img src="./preview-phone.png" alt="Isolix Application Phone Interface" class="app-preview preview-phone">
             </div>
 
         </div>
@@ -1477,7 +1498,7 @@
             Please respect copyright laws and only process content you have the legal right to alter.
         </p>
 
-        <p style="margin-top: 24px; font-weight: 600;">
+        <p style="margin-top: 20px; font-weight: 600;">
             &copy; 2026 Isolix Audio Tools. Built with purpose.
         </p>
 
