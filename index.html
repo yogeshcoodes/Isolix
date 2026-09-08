@@ -821,6 +821,169 @@
         }
 
         /* =========================================================
+            STEM DEMO PLAYER
+        ========================================================= */
+        .stem-row {
+            --stem-accent: #a855f7;
+            --stem-accent-soft: rgba(168, 85, 247, 0.14);
+            --stem-accent-border: rgba(168, 85, 247, 0.34);
+            --stem-accent-strong: rgba(168, 85, 247, 0.24);
+        }
+
+        .stem-row.stem-original {
+            --stem-accent: #e4e4e7;
+            --stem-accent-soft: rgba(228, 228, 231, 0.09);
+            --stem-accent-border: rgba(228, 228, 231, 0.22);
+            --stem-accent-strong: rgba(228, 228, 231, 0.15);
+        }
+
+        .stem-row.stem-vocals {
+            --stem-accent: #c084fc;
+            --stem-accent-soft: rgba(192, 132, 252, 0.14);
+            --stem-accent-border: rgba(192, 132, 252, 0.34);
+            --stem-accent-strong: rgba(192, 132, 252, 0.24);
+        }
+
+        .stem-row.stem-drums {
+            --stem-accent: #fb7185;
+            --stem-accent-soft: rgba(251, 113, 133, 0.14);
+            --stem-accent-border: rgba(251, 113, 133, 0.34);
+            --stem-accent-strong: rgba(251, 113, 133, 0.24);
+        }
+
+        .stem-row.stem-bass {
+            --stem-accent: #fbbf24;
+            --stem-accent-soft: rgba(251, 191, 36, 0.14);
+            --stem-accent-border: rgba(251, 191, 36, 0.34);
+            --stem-accent-strong: rgba(251, 191, 36, 0.24);
+        }
+
+        .stem-row.stem-guitar {
+            --stem-accent: #60a5fa;
+            --stem-accent-soft: rgba(96, 165, 250, 0.14);
+            --stem-accent-border: rgba(96, 165, 250, 0.34);
+            --stem-accent-strong: rgba(96, 165, 250, 0.24);
+        }
+
+        .stem-row.stem-piano {
+            --stem-accent: #22d3ee;
+            --stem-accent-soft: rgba(34, 211, 238, 0.14);
+            --stem-accent-border: rgba(34, 211, 238, 0.34);
+            --stem-accent-strong: rgba(34, 211, 238, 0.24);
+        }
+
+        .stem-row.stem-other {
+            --stem-accent: #34d399;
+            --stem-accent-soft: rgba(52, 211, 153, 0.14);
+            --stem-accent-border: rgba(52, 211, 153, 0.34);
+            --stem-accent-strong: rgba(52, 211, 153, 0.24);
+        }
+
+        .stem-row.is-playing {
+            background-color: var(--stem-accent-soft);
+            border-color: var(--stem-accent-border);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+        }
+
+        .stem-row.is-playing:hover {
+            background-color: var(--stem-accent-strong);
+            border-color: var(--stem-accent-border);
+        }
+
+        .stem-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .stem-dot {
+            width: 9px;
+            height: 9px;
+            flex: 0 0 9px;
+            border-radius: 50%;
+            background: var(--stem-accent);
+            box-shadow: 0 0 0 5px var(--stem-accent-soft);
+        }
+
+        .stem-label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stem-play {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            flex: 0 0 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid var(--stem-accent-border);
+            background: var(--stem-accent-soft);
+            color: var(--stem-accent);
+            cursor: pointer;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        }
+
+        .stem-play:hover {
+            background: var(--stem-accent-strong);
+            border-color: var(--stem-accent);
+            transform: translateY(-1px) scale(1.03);
+        }
+
+        .stem-play:active {
+            transform: scale(0.96);
+        }
+
+        .stem-play svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+            stroke: none;
+        }
+
+        .stem-play .pause-icon {
+            display: none;
+        }
+
+        .stem-row.is-playing .stem-play .play-icon {
+            display: none;
+        }
+
+        .stem-row.is-playing .stem-play .pause-icon {
+            display: block;
+        }
+
+        .stem-file {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin-left: auto;
+            margin-right: 2px;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 480px) {
+            .stem-file {
+                display: none;
+            }
+
+            .stem-row {
+                gap: 10px;
+                padding: 13px 14px;
+            }
+
+            .stem-play {
+                width: 36px;
+                height: 36px;
+                flex-basis: 36px;
+            }
+        }
+
+        /* =========================================================
             FAQ SECTION
         ========================================================= */
         .faq-item {
@@ -1267,34 +1430,137 @@
 
                     <div class="stem-preview-box">
 
-                        <div class="stem-row active">
-                            <span>
-                                Vocals
-                            </span>
+                        <div class="stem-row stem-original" data-audio="original.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Original</span>
+                            </div>
 
-                            <span class="stem-badge active">
-                                READY
-                            </span>
+                            <span class="stem-file">original.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Original">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
                         </div>
 
-                        <div class="stem-row">
-                            <span>
-                                Drums
-                            </span>
+                        <div class="stem-row stem-vocals" data-audio="vocals.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Vocals</span>
+                            </div>
 
-                            <span class="stem-badge">
-                                READY
-                            </span>
+                            <span class="stem-file">vocals.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Vocals">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
                         </div>
 
-                        <div class="stem-row">
-                            <span>
-                                Bass
-                            </span>
+                        <div class="stem-row stem-drums" data-audio="drums.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Drums</span>
+                            </div>
 
-                            <span class="stem-badge">
-                                READY
-                            </span>
+                            <span class="stem-file">drums.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Drums">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="stem-row stem-bass" data-audio="bass.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Bass</span>
+                            </div>
+
+                            <span class="stem-file">bass.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Bass">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="stem-row stem-guitar" data-audio="guitar.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Guitar</span>
+                            </div>
+
+                            <span class="stem-file">guitar.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Guitar">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="stem-row stem-piano" data-audio="piano.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Piano</span>
+                            </div>
+
+                            <span class="stem-file">piano.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Piano">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="stem-row stem-other" data-audio="other.mp3">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Other</span>
+                            </div>
+
+                            <span class="stem-file">other.mp3</span>
+
+                            <button type="button" class="stem-play" aria-label="Play Other">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                            </button>
                         </div>
 
                     </div>
@@ -1580,6 +1846,91 @@
                     observer.observe(element);
 
                 });
+
+            // 4. STEM DEMO AUDIO PLAYERS
+            const stemRows = document.querySelectorAll(".stem-row[data-audio]");
+            let activeStemAudio = null;
+            let activeStemRow = null;
+
+            const stopActiveStem = () => {
+                if (activeStemAudio) {
+                    activeStemAudio.pause();
+                    activeStemAudio.currentTime = 0;
+                    activeStemAudio = null;
+                }
+
+                if (activeStemRow) {
+                    activeStemRow.classList.remove("is-playing");
+                    const button = activeStemRow.querySelector(".stem-play");
+                    if (button) {
+                        button.setAttribute(
+                            "aria-label",
+                            `Play ${activeStemRow.querySelector(".stem-label")?.textContent.trim() || "stem"}`
+                        );
+                    }
+                    activeStemRow = null;
+                }
+            };
+
+            stemRows.forEach(row => {
+                const button = row.querySelector(".stem-play");
+                const fileName = row.dataset.audio;
+                const label = row.querySelector(".stem-label")?.textContent.trim() || "stem";
+
+                if (!button || !fileName) {
+                    return;
+                }
+
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation();
+
+                    if (activeStemRow === row && activeStemAudio) {
+                        if (activeStemAudio.paused) {
+                            activeStemAudio.play().catch(() => {});
+                            row.classList.add("is-playing");
+                            button.setAttribute("aria-label", `Pause ${label}`);
+                        } else {
+                            activeStemAudio.pause();
+                            row.classList.remove("is-playing");
+                            button.setAttribute("aria-label", `Play ${label}`);
+                        }
+                        return;
+                    }
+
+                    stopActiveStem();
+
+                    const audio = new Audio(fileName);
+                    activeStemAudio = audio;
+                    activeStemRow = row;
+
+                    audio.preload = "metadata";
+                    audio.addEventListener("ended", () => {
+                        if (activeStemAudio === audio) {
+                            row.classList.remove("is-playing");
+                            button.setAttribute("aria-label", `Play ${label}`);
+                            activeStemAudio = null;
+                            activeStemRow = null;
+                        }
+                    });
+
+                    audio.addEventListener("error", () => {
+                        if (activeStemAudio === audio) {
+                            row.classList.remove("is-playing");
+                            button.setAttribute("aria-label", `Play ${label}`);
+                            activeStemAudio = null;
+                            activeStemRow = null;
+                        }
+                    });
+
+                    audio.play().then(() => {
+                        row.classList.add("is-playing");
+                        button.setAttribute("aria-label", `Pause ${label}`);
+                    }).catch(() => {
+                        row.classList.remove("is-playing");
+                        button.setAttribute("aria-label", `Play ${label}`);
+                    });
+                });
+            });
 
             // Allow clicking outside FAQ to close
             const details =
