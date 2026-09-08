@@ -483,13 +483,98 @@
         /* =========================================================
             IMAGE APP PREVIEW
         ========================================================= */
-        .app-preview-container {
+        .app-preview-block {
+            width: 100%;
             margin-top: 45px;
+        }
+
+        .preview-heading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 14px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .preview-heading::before,
+        .preview-heading::after {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .preview-heading::before {
+            margin-right: 10px;
+        }
+
+        .preview-heading::after {
+            margin-left: 10px;
+        }
+
+        .app-preview-container {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             perspective: 1000px;
+        }
+
+        .demo-heading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 16px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .demo-heading::before,
+        .demo-heading::after {
+            content: "";
+            width: 26px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .demo-heading::before {
+            margin-right: 10px;
+        }
+
+        .demo-heading::after {
+            margin-left: 10px;
+        }
+
+        .demo-mode-label {
+            width: 100%;
+            max-width: 320px;
+            margin: 18px auto 8px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.66rem;
+            font-weight: 800;
+            letter-spacing: 1.15px;
+            text-transform: uppercase;
+        }
+
+        .demo-mode-label:first-of-type {
+            margin-top: 0;
+        }
+
+        .demo-group {
+            gap: 10px;
+        }
+
+        .demo-two-stem,
+        .demo-six-stem {
+            margin-bottom: 4px;
         }
 
         .app-preview {
@@ -516,6 +601,10 @@
         @media (max-width: 768px) {
             .preview-tab {
                 display: none;
+            }
+
+            .app-preview-block {
+                margin-top: 36px;
             }
 
             .preview-phone {
@@ -1046,6 +1135,143 @@
             }
         }
 
+
+        /* =========================================================
+            COMPACT AUDIO DEMO LAYOUT
+        ========================================================= */
+        .demo-showcase-row {
+            display: block;
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .demo-showcase-visual {
+            width: 100%;
+            max-width: none;
+            min-width: 0;
+            display: block;
+        }
+
+        .demo-intro {
+            width: min(100%, 760px);
+            margin: 0 auto 28px;
+            text-align: center;
+        }
+
+        .demo-intro h3 {
+            font-size: clamp(1.65rem, 3vw, 2rem);
+            margin-bottom: 8px;
+        }
+
+        .demo-intro p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .demo-groups {
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(170px, 0.72fr) minmax(210px, 0.9fr) minmax(360px, 1.5fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        .demo-card {
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            background: rgba(18, 18, 22, 0.44);
+        }
+
+        .demo-mode-label {
+            width: 100%;
+            max-width: none;
+            margin: 0 0 9px;
+            text-align: left;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.64rem;
+            font-weight: 800;
+            letter-spacing: 0.95px;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .demo-mode-detail {
+            margin: -2px 0 9px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            line-height: 1.4;
+        }
+
+        .demo-group {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            gap: 8px;
+        }
+
+        .demo-six-stem {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .demo-card .stem-row {
+            padding: 13px 14px;
+        }
+
+        @media (max-width: 940px) {
+            .demo-groups {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .demo-reference {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .demo-intro {
+                margin-bottom: 22px;
+            }
+
+            .demo-groups {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .demo-reference {
+                grid-column: auto;
+            }
+
+            .demo-six-stem {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-card {
+                padding: 11px;
+                border-radius: 18px;
+            }
+
+            .demo-mode-label {
+                font-size: 0.62rem;
+            }
+
+            .demo-mode-detail {
+                font-size: 0.68rem;
+            }
+        }
+
+        @media (min-width: 941px) {
+            .demo-card.demo-six {
+                align-self: stretch;
+            }
+        }
+
         /* =========================================================
             FAQ SECTION
         ========================================================= */
@@ -1263,7 +1489,8 @@
             <h1>No Limits Offline Stem Separation.</h1>
             <p>
                 The sleek, intelligent, and fully local media tool for professionals.
-                Extract vocals, drums, bass, and instruments seamlessly without cloud limits or subscriptions.
+                Choose between fast Vocals + Instrumental separation or the advanced 6-Stem mode
+                for Vocals, Drums, Bass, Guitar, Piano, and Other — all without cloud limits or subscriptions.
             </p>
 
             <div class="download-actions">
@@ -1360,10 +1587,14 @@
             </div>
 
             <!-- Responsive Image Preview (Tab & Phone) -->
-            <div class="app-preview-container fade-up">
-                <img src="./preview-tab.png" alt="Isolix Application Tablet Interface" class="app-preview preview-tab">
-                <img src="./preview-phone.png" alt="Isolix Application Phone Interface"
-                    class="app-preview preview-phone">
+            <div class="app-preview-block fade-up">
+                <div class="preview-heading">App Preview</div>
+                <div class="app-preview-container">
+                    <img data-src="./preview-tab.png" alt="Isolix Application Tablet Interface"
+                        class="app-preview preview-tab">
+                    <img data-src="./preview-phone.png" alt="Isolix Application Phone Interface"
+                        class="app-preview preview-phone">
+                </div>
             </div>
 
         </div>
@@ -1413,12 +1644,12 @@
                     </div>
 
                     <h3>
-                        Select Model
+                        Select Separation Mode
                     </h3>
 
                     <p>
-                        Choose between standard Vocals + Instrumental separation,
-                        or unlock the advanced 6-Stem AI engine.
+                        Use <strong>Vocals + Instrumental</strong> for a simple 2-stem split,
+                        or choose the <strong>6-Stem</strong> engine for Vocals, Drums, Bass, Guitar, Piano, and Other.
                     </p>
                 </div>
 
@@ -1488,203 +1719,227 @@
             </div>
 
             <!-- Stems -->
-            <div class="showcase-row reverse fade-up">
+            <div class="demo-showcase-row fade-up">
 
-                <div class="showcase-visual">
+                <div class="demo-showcase-visual">
 
-                    <div class="stem-preview-box">
+                    <div class="demo-heading">Try the Audio Demo</div>
 
-                        <div class="stem-row stem-original" data-stem="original">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Original</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Original">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-vocals" data-stem="vocals">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Vocals</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Vocals">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-drums" data-stem="drums">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Drums</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Drums">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-bass" data-stem="bass">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Bass</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Bass">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-guitar" data-stem="guitar">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Guitar</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Guitar">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-piano" data-stem="piano">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Piano</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Piano">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-other" data-stem="other">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Other</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Other">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="stem-row stem-instrumental" data-stem="instrumental">
-                            <div class="stem-name">
-                                <span class="stem-dot"></span>
-                                <span class="stem-label">Instrumental</span>
-                            </div>
-
-                            <button type="button" class="stem-play" aria-label="Play Instrumental">
-                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
-                                    </path>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                                </svg>
-                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="8"></circle>
-                                </svg>
-                            </button>
-                        </div>
-
+                    <div class="demo-intro">
+                        <h3>Two Separation Modes</h3>
+                        <p>Choose <strong>Vocals + Instrumental</strong> for a simple 2-stem split, or use the
+                            <strong>6-Stem Engine</strong> for Vocals, Drums, Bass, Guitar, Piano, and Other.</p>
                     </div>
 
-                </div>
+                    <div class="demo-groups">
+                        <div class="demo-card demo-reference">
+                            <div class="demo-mode-label">Reference · Original Track</div>
+                            <div class="stem-preview-box demo-group">
+                                <div class="stem-row stem-original" data-stem="original">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Original</span>
+                                    </div>
 
-                <div class="showcase-text">
+                                    <button type="button" class="stem-play" aria-label="Play Original">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
-                    <h3>
-                        Advanced 6-Stem Engine
-                    </h3>
+                        <div class="demo-card demo-two">
+                            <div class="demo-mode-label">2-Stem Mode · Vocals + Instrumental</div>
+                            <div class="stem-preview-box demo-group">
+                                <div class="stem-row stem-vocals" data-stem="vocals">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Vocals</span>
+                                    </div>
 
-                    <p>
-                        Go beyond basic karaoke tracks. Our local models can isolate Vocals,
-                        Drums, Bass, Guitar, Piano, and Other instruments into dedicated,
-                        mixable files perfectly synced to the original track.
-                    </p>
+                                    <button type="button" class="stem-play" aria-label="Play Vocals">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="stem-row stem-instrumental" data-stem="instrumental">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Instrumental</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Instrumental">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-card demo-six">
+                            <div class="demo-mode-label">6-Stem Mode</div>
+                            <div class="demo-mode-detail">Vocals · Drums · Bass · Guitar · Piano · Other</div>
+                            <div class="stem-preview-box demo-group demo-six-stem">
+                                <div class="stem-row stem-vocals" data-stem="vocals">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Vocals</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Vocals">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="stem-row stem-drums" data-stem="drums">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Drums</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Drums">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="stem-row stem-bass" data-stem="bass">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Bass</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Bass">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="stem-row stem-guitar" data-stem="guitar">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Guitar</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Guitar">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="stem-row stem-piano" data-stem="piano">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Piano</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Piano">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="stem-row stem-other" data-stem="other">
+                                    <div class="stem-name">
+                                        <span class="stem-dot"></span>
+                                        <span class="stem-label">Other</span>
+                                    </div>
+
+                                    <button type="button" class="stem-play" aria-label="Play Other">
+                                        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path
+                                                d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                            </path>
+                                        </svg>
+                                        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                        </svg>
+                                        <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -1954,10 +2209,10 @@
 
                 });
 
-            // 4. STEM DEMO AUDIO PLAYERS
-            // Audio is loaded only after the user clicks Play.
-            // GitHub Pages serves these files as static media, so the browser handles
-            // progressive buffering/range requests while the UI reacts to buffering events.
+            // 4. STEM DEMO AUDIO PLAYERS + PERSISTENT ASSET CACHE
+            // First visit: assets are progressively usable while the browser
+            // also warms a persistent Cache Storage copy in the background.
+            // Later visits: cached assets are reused without downloading again.
             const stemRows = document.querySelectorAll(".stem-row[data-stem]");
             const DEMO_SOURCES = {
                 original: "./original.mp3",
@@ -1969,6 +2224,80 @@
                 other: "./other.mp3",
                 instrumental: "./instrumental.mp3"
             };
+
+            const ASSET_URLS = [
+                "./preview-tab.png",
+                "./preview-phone.png",
+                ...Object.values(DEMO_SOURCES)
+            ];
+            const ASSET_CACHE = "isolix-assets-v3";
+            const assetBlobUrls = new Map();
+
+            const makeAbsoluteUrl = relative => new URL(relative, document.baseURI).href;
+
+            const cacheAsset = async relative => {
+                if (!('caches' in window)) return;
+
+                const url = makeAbsoluteUrl(relative);
+                const cache = await caches.open(ASSET_CACHE);
+                const existing = await cache.match(url, { ignoreSearch: true });
+                if (existing) return existing;
+
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`Failed to cache ${url}: ${response.status}`);
+                await cache.put(url, response.clone());
+                return response;
+            };
+
+            const getCachedResponse = async relative => {
+                if (!('caches' in window)) return null;
+                const cache = await caches.open(ASSET_CACHE);
+                return cache.match(makeAbsoluteUrl(relative), { ignoreSearch: true });
+            };
+
+            const getCachedBlobUrl = async relative => {
+                if (assetBlobUrls.has(relative)) return assetBlobUrls.get(relative);
+                const response = await getCachedResponse(relative);
+                if (!response) return null;
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                assetBlobUrls.set(relative, blobUrl);
+                return blobUrl;
+            };
+
+            const warmPersistentAssets = async () => {
+                try {
+                    if (navigator.storage?.persist) {
+                        await navigator.storage.persist().catch(() => false);
+                    }
+
+                    // Sequential warming avoids seven large downloads starting at once.
+                    for (const asset of ASSET_URLS) {
+                        try {
+                            await cacheAsset(asset);
+                        } catch (error) {
+                            console.warn("Isolix asset cache failed:", asset, error);
+                        }
+                    }
+                } catch (error) {
+                    console.warn("Persistent asset caching unavailable:", error);
+                }
+            };
+
+            const restoreCachedImages = async () => {
+                document.querySelectorAll("img[data-src]").forEach(async image => {
+                    const relative = image.dataset.src;
+                    const cachedUrl = await getCachedBlobUrl(relative);
+                    if (cachedUrl) {
+                        image.src = cachedUrl;
+                    } else {
+                        image.src = relative;
+                    }
+                });
+            };
+
+            restoreCachedImages();
+            warmPersistentAssets();
 
             let activeStemAudio = null;
             let activeStemRow = null;
@@ -1984,13 +2313,10 @@
 
             const setButtonState = (row, state) => {
                 if (!row) return;
-
                 const button = getButton(row);
                 const label = getLabel(row);
-
                 row.classList.toggle("is-playing", state === "playing");
                 row.classList.toggle("is-loading", state === "loading");
-
                 if (button) {
                     button.disabled = state === "loading";
                     button.setAttribute(
@@ -2011,32 +2337,37 @@
             const stopActiveStem = () => {
                 if (activeStemAudio) {
                     activeStemAudio.pause();
-                    activeStemAudio.removeAttribute("src");
+                    if (activeStemAudio.src.startsWith("blob:")) {
+                        // Keep the object URL alive for subsequent clicks.
+                    }
+                    activeStemAudio.src = "";
                     activeStemAudio.load();
                     activeStemAudio = null;
                 }
-
                 if (activeStemRow) {
                     resetRow(activeStemRow);
                     activeStemRow = null;
                 }
             };
 
+            const createAudioSource = async stemKey => {
+                const relative = DEMO_SOURCES[stemKey];
+                const cachedUrl = await getCachedBlobUrl(relative);
+                return cachedUrl || relative;
+            };
+
             stemRows.forEach(row => {
                 const button = getButton(row);
                 const stemKey = row.dataset.stem;
-
                 if (!button || !stemKey || !DEMO_SOURCES[stemKey]) return;
 
-                button.addEventListener("click", event => {
+                button.addEventListener("click", async event => {
                     event.stopPropagation();
 
                     if (activeStemRow === row && activeStemAudio) {
                         if (activeStemAudio.paused) {
                             setButtonState(row, "loading");
-                            activeStemAudio.play().catch(() => {
-                                resetRow(row);
-                            });
+                            activeStemAudio.play().catch(() => resetRow(row));
                         } else {
                             activeStemAudio.pause();
                             setButtonState(row, "idle");
@@ -2048,24 +2379,25 @@
 
                     const audio = new Audio();
                     audio.preload = "auto";
-                    audio.src = DEMO_SOURCES[stemKey];
                     audio.setAttribute("playsinline", "");
                     activeStemAudio = audio;
                     activeStemRow = row;
                     setProgress(row, 0);
                     setButtonState(row, "loading");
 
+                    let started = false;
+
                     const fail = () => {
                         if (activeStemAudio !== audio) return;
                         resetRow(row);
                         audio.pause();
+                        audio.src = "";
                         activeStemAudio = null;
                         activeStemRow = null;
                     };
 
                     audio.addEventListener("loadedmetadata", () => {
-                        if (activeStemAudio !== audio) return;
-                        setProgress(row, 0);
+                        if (activeStemAudio === audio) setProgress(row, 0);
                     });
 
                     audio.addEventListener("timeupdate", () => {
@@ -2084,13 +2416,12 @@
                     });
 
                     audio.addEventListener("stalled", () => {
-                        if (activeStemAudio === audio && !audio.paused) {
-                            setButtonState(row, "loading");
-                        }
+                        if (activeStemAudio === audio && !audio.paused) setButtonState(row, "loading");
                     });
 
                     audio.addEventListener("canplay", () => {
-                        if (activeStemAudio !== audio || !audio.paused) return;
+                        if (activeStemAudio !== audio || started) return;
+                        started = true;
                         audio.play().catch(() => {
                             if (activeStemAudio === audio) resetRow(row);
                         });
@@ -2101,9 +2432,7 @@
                     });
 
                     audio.addEventListener("pause", () => {
-                        if (activeStemAudio === audio && !audio.ended) {
-                            setButtonState(row, "idle");
-                        }
+                        if (activeStemAudio === audio && !audio.ended) setButtonState(row, "idle");
                     });
 
                     audio.addEventListener("ended", () => {
@@ -2117,6 +2446,8 @@
                     audio.addEventListener("error", fail);
 
                     try {
+                        audio.src = await createAudioSource(stemKey);
+                        if (activeStemAudio !== audio) return;
                         audio.load();
                     } catch {
                         fail();
