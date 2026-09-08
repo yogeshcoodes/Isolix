@@ -1,64 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Isolix | Studio-Grade Stem Separation</title>
 
-    <!-- Favicon using your SVG -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(179, 112, 252, 1)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='6' height='10' x='9' y='7' rx='2'/%3E%3Cpath d='M4 22V2'/%3E%3Cpath d='M20 22V2'/%3E%3C/svg%3E">
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='6' height='10' x='9' y='7' rx='2'/%3E%3Cpath d='M4 22V2'/%3E%3Cpath d='M20 22V2'/%3E%3C/svg%3E">
 
     <style>
         /* =========================================================
-           MAC OS / IOS THEME VARIABLES
+           GLOBAL RESET & THEME VARIABLES
         ========================================================= */
         :root {
             color-scheme: dark;
-            accent-color: var(--brand-purple);
+            --bg-base: #0f0f13;
 
-            /* Dark Theme */
-            --bg-base: #000000;
-            --surface-glass: rgba(28, 28, 30, 0.65);
-            --surface-glass-hover: rgba(44, 44, 46, 0.85);
-            --border-subtle: rgba(255, 255, 255, 0.18);
+            /* Glass Elements */
+            --surface-glass: rgba(28, 28, 32, 0.65);
+            --surface-glass-hover: rgba(44, 44, 50, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.12);
+
+            /* Typography */
             --text-main: #ffffff;
-            --text-muted: #b0b0b8;
-            --shadow-glass: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --text-muted: #a1a1aa;
 
-            /* Gradient Mesh */
-            --mesh-1: rgba(191, 90, 242, 0.25);
-            --mesh-2: rgba(10, 132, 255, 0.22);
-            --mesh-3: rgba(90, 200, 250, 0.15);
-            --music-symbol-opacity: 0.12;
+            /* Premium Accent Colors */
+            --brand-indigo: #6366f1;
+            --brand-purple: #a855f7;
+            --brand-blue: #3b82f6;
+            --brand-green: #10b981;
+            --brand-cyan: #06b6d4;
 
-            /* Brand Colors */
-            --brand-purple: rgba(179, 112, 252, 1);
-            --brand-green: rgba(14, 207, 125, 1);
-            --danger: #ff453a;
+            /* UI Elements */
+            --btn-bg: #e3e3e3;
+            --btn-text: #0f0f13;
+
+            /* Neutral Shadows */
+            --shadow-glass: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+            /* Rich Colored Mesh Gradient */
+            --mesh-1: rgba(99, 102, 241, 0.18);
+            --mesh-2: rgba(6, 182, 212, 0.15);
+            --mesh-3: rgba(168, 85, 247, 0.15);
+            --music-symbol-opacity: 0.15;
         }
 
-        [data-theme="light"] {
-            color-scheme: light;
-            /* Light Theme */
-            --bg-base: #e5e5ea;
-            --surface-glass: rgba(255, 255, 255, 0.85);
-            --surface-glass-hover: rgba(255, 255, 255, 1);
-            --border-subtle: rgba(0, 0, 0, 0.15);
-            --text-main: #000000;
-            --text-muted: #555555;
-            --shadow-glass: 0 8px 30px rgba(0, 0, 0, 0.08);
-
-            --mesh-1: rgba(191, 130, 255, 0.25);
-            --mesh-2: rgba(100, 180, 255, 0.25);
-            --mesh-3: rgba(120, 220, 255, 0.25);
-            --music-symbol-opacity: 0.06;
-        }
-
-        /* =========================================================
-           GLOBAL RESET
-        ========================================================= */
         * {
             margin: 0;
             padding: 0;
@@ -75,14 +65,6 @@
             background-color: var(--bg-base);
             color: var(--text-main);
             line-height: 1.6;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
-
-        body {
-            background-image:
-                radial-gradient(circle at 10% 10%, rgba(179, 112, 252, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 90% 90%, rgba(14, 207, 125, 0.05) 0%, transparent 50%);
-            background-attachment: fixed;
         }
 
         a,
@@ -97,11 +79,11 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: transparent;
+            background: var(--bg-base);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--border-subtle);
+            background: #3f3f46;
             border-radius: 10px;
             border: 2px solid var(--bg-base);
         }
@@ -111,90 +93,14 @@
         }
 
         /* =========================================================
-           TOP NAVIGATION
-        ========================================================= */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            background: rgba(var(--bg-base), 0.1);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-bottom: 1px solid var(--border-subtle);
-            z-index: 1000;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-logo svg {
-            color: var(--brand-purple);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--brand-purple);
-        }
-
-        .theme-switch {
-            background: var(--surface-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 50px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-            color: var(--text-main);
-        }
-
-        .theme-switch:hover {
-            transform: scale(1.05);
-            background: var(--surface-glass-hover);
-        }
-
-        .theme-switch:active {
-            transform: scale(0.95);
-        }
-
-        /* =========================================================
-           HERO & MESH GRADIENT
+           RICH COLORED BACKGROUND MESH
         ========================================================= */
         .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 80vh;
+            height: 90vh;
             z-index: 0;
             pointer-events: none;
             background:
@@ -203,14 +109,12 @@
                 radial-gradient(ellipse at 50% 40%, var(--mesh-3) 0%, transparent 70%);
             -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
             mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
-            transition: background 0.4s ease;
         }
 
         .music-symbol {
             position: absolute;
             color: var(--text-main);
             opacity: var(--music-symbol-opacity);
-            transition: opacity 0.4s ease;
         }
 
         .sym-1 {
@@ -219,7 +123,7 @@
             width: 60px;
             height: 60px;
             transform: rotate(-15deg);
-            filter: blur(1.5px);
+            filter: blur(1px);
         }
 
         .sym-2 {
@@ -228,7 +132,7 @@
             width: 85px;
             height: 85px;
             transform: rotate(12deg);
-            filter: blur(4px);
+            filter: blur(3px);
         }
 
         .sym-3 {
@@ -257,6 +161,7 @@
         h4 {
             font-weight: 700;
             letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
         .section {
@@ -265,13 +170,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 140px 24px 60px;
+            padding: 80px 24px 60px;
             position: relative;
             z-index: 10;
         }
 
         .section-auto {
             padding: 100px 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-notice {
+            padding: 60px 24px 20px 24px;
             position: relative;
             z-index: 10;
         }
@@ -284,39 +195,47 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 50px;
             font-size: clamp(2rem, 4vw, 2.5rem);
         }
 
+        /* =========================================================
+           HERO SECTION
+        ========================================================= */
         .hero {
             text-align: center;
+            padding-top: 120px;
         }
 
-        .hero-logo {
+        .hero-logo-svg {
+            display: block;
+            margin: 0 auto 16px auto;
+            width: 72px;
+            height: 72px;
             color: var(--text-main);
-            margin-bottom: 20px;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
         }
 
         .hero-app-name {
-            font-size: 1.3rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            color: var(--brand-purple);
-            margin-bottom: 12px;
-            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .hero h1 {
             font-size: clamp(3rem, 6vw, 4.5rem);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .hero p {
             font-size: clamp(1.1rem, 2vw, 1.25rem);
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 620px;
             margin: 0 auto 40px auto;
             line-height: 1.6;
         }
@@ -328,8 +247,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 50px;
+            gap: 18px;
+            margin-bottom: 60px;
+            width: 100%;
         }
 
         .btn-download {
@@ -337,36 +257,35 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background-color: var(--brand-purple);
-            color: #ffffff !important;
+            background-color: var(--btn-bg);
+            color: var(--btn-text) !important;
             text-decoration: none;
             padding: 18px 40px;
             border-radius: 20px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(179, 112, 252, 0.4);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            margin: 0 auto;
         }
 
         .btn-download:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(179, 112, 252, 0.6);
-            background-color: #c891ff;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 34px rgba(255, 255, 255, 0.15);
+            background-color: #ffffff;
         }
 
         .btn-download:active {
-            transform: scale(0.97);
+            transform: translateY(0) scale(0.98);
         }
 
         .btn-download svg {
             width: 24px;
             height: 24px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+            fill: currentColor;
+            flex-shrink: 0;
         }
 
         .release-history-toggle {
@@ -382,11 +301,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            margin: 0 auto;
         }
 
         .release-history-toggle:hover {
             color: var(--text-main);
-            background: rgba(128, 128, 128, 0.15);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         .release-history-toggle svg {
@@ -412,6 +332,7 @@
             opacity: 0;
             overflow: hidden;
             transition: grid-template-rows 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+            margin: 0 auto;
         }
 
         .release-history.open {
@@ -423,7 +344,7 @@
             min-height: 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             padding-top: 0;
             transition: padding-top 0.4s ease;
         }
@@ -436,9 +357,9 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            background: var(--surface-glass);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            background-color: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
             border-radius: 18px;
             padding: 16px;
@@ -446,7 +367,7 @@
             box-shadow: var(--shadow-glass);
             transform: translateY(-10px);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .release-history.open .release-card {
@@ -455,7 +376,8 @@
         }
 
         .release-card:hover {
-            border-color: var(--brand-purple);
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: var(--surface-glass-hover);
             transform: scale(1.01);
         }
 
@@ -467,9 +389,15 @@
             align-items: center;
             justify-content: center;
             border-radius: 12px;
-            background: rgba(179, 112, 252, 0.15);
-            border: 1px solid rgba(179, 112, 252, 0.3);
-            color: var(--brand-purple);
+            background-color: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--brand-green);
+        }
+
+        .release-file-icon.old {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-muted);
         }
 
         .release-file-icon svg {
@@ -483,6 +411,9 @@
         .release-info {
             flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .release-name {
@@ -505,7 +436,7 @@
         }
 
         .release-current {
-            background: rgba(14, 207, 125, 0.15);
+            background-color: rgba(16, 185, 129, 0.15);
             color: var(--brand-green);
             padding: 3px 10px;
             border-radius: 20px;
@@ -522,193 +453,64 @@
             align-items: center;
             justify-content: center;
             border-radius: 12px;
-            background: rgba(128, 128, 128, 0.15);
+            background-color: rgba(255, 255, 255, 0.1);
             color: var(--text-main);
             text-decoration: none;
             border: 1px solid var(--border-subtle);
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
         }
 
         .release-download:hover {
-            background: var(--text-main);
+            background-color: var(--text-main);
             color: var(--bg-base);
             transform: scale(1.05);
             border-color: transparent;
         }
 
+        .release-download svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         /* =========================================================
-           CSS APP PREVIEW (FULLY VISIBLE & POPULATED)
+           IMAGE APP PREVIEW
         ========================================================= */
         .app-preview-container {
-            margin-top: 40px;
+            margin-top: 60px;
             width: 100%;
             display: flex;
             justify-content: center;
             perspective: 1000px;
         }
 
-        .css-app-mockup {
+        .app-preview {
             width: 100%;
-            max-width: 760px;
-            background: var(--surface-glass);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid var(--border-subtle);
+            max-width: 850px;
+            height: auto;
+            object-fit: contain;
+            background: transparent;
+            border: none;
             border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
             animation: float 6s ease-in-out infinite;
-            text-align: left;
-        }
-
-        .mock-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 8px;
-        }
-
-        .mock-header svg {
-            color: var(--text-main);
-            width: 28px;
-            height: 28px;
-        }
-
-        .mock-header strong {
-            font-size: 24px;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-        }
-
-        .mock-drop {
-            height: 140px;
-            border: 2px dashed var(--border-subtle);
-            border-radius: 22px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(128, 128, 128, 0.05);
-        }
-
-        .mock-drop svg {
-            color: var(--text-muted);
-            width: 36px;
-            height: 36px;
-        }
-
-        .mock-drop span {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .mock-drop b {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .mock-options-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .mock-opt-box {
-            border: 1px solid var(--border-subtle);
-            border-radius: 18px;
-            padding: 18px 20px;
-            background: rgba(128, 128, 128, 0.05);
-        }
-
-        .mock-label {
-            display: block;
-            color: var(--text-muted);
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 14px;
-        }
-
-        /* Simulated Radio Buttons */
-        .mock-radio {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        .mock-radio:last-child {
-            margin-bottom: 0;
-        }
-
-        .mock-circle {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            border: 2px solid var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mock-circle.active {
-            border-color: var(--brand-purple);
-        }
-
-        .mock-circle.active::after {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--brand-purple);
-            border-radius: 50%;
-        }
-
-        /* Simulated Dropdown */
-        .mock-select {
-            background: rgba(128, 128, 128, 0.15);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: var(--text-main);
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Mock Extract Button */
-        .mock-btn {
-            background: var(--text-main);
-            color: var(--bg-base);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-            margin-top: 4px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
 
         @keyframes float {
             0% {
-                transform: translateY(0) rotateX(2deg);
+                transform: translateY(0);
             }
 
             50% {
-                transform: translateY(-16px) rotateX(0deg);
+                transform: translateY(-16px);
             }
 
             100% {
-                transform: translateY(0) rotateX(2deg);
+                transform: translateY(0);
             }
         }
 
@@ -724,21 +526,54 @@
         }
 
         .glass-card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            background-color: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
             padding: 40px 32px;
             border-radius: 24px;
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-glass);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            text-align: left;
+            cursor: pointer;
         }
 
         .glass-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(179, 112, 252, 0.4);
+            background-color: var(--surface-glass-hover);
+        }
+
+        /* Hover borders matching the internal icon color */
+        .glass-card.card-indigo:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .glass-card.card-purple:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .glass-card.card-green:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .glass-card.card-cyan:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+
+        .glass-card.card-blue:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        /* Keep the card hover fade working with the scroll-reveal class. */
+        .glass-card.fade-up {
+            transition:
+                opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+                transform 0.4s ease,
+                background-color 0.4s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
         }
 
         .step-number {
@@ -747,7 +582,7 @@
             right: -10px;
             font-size: 8rem;
             font-weight: 800;
-            color: rgba(128, 128, 128, 0.05);
+            color: rgba(255, 255, 255, 0.02);
             line-height: 1;
             pointer-events: none;
         }
@@ -760,18 +595,31 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 24px;
-            background: rgba(179, 112, 252, 0.15);
+        }
+
+        .card-icon.indigo {
+            background-color: rgba(99, 102, 241, 0.15);
+            color: var(--brand-indigo);
+        }
+
+        .card-icon.purple {
+            background-color: rgba(168, 85, 247, 0.15);
             color: var(--brand-purple);
         }
 
         .card-icon.green {
-            background: rgba(14, 207, 125, 0.15);
+            background-color: rgba(16, 185, 129, 0.15);
             color: var(--brand-green);
         }
 
+        .card-icon.cyan {
+            background-color: rgba(6, 182, 212, 0.15);
+            color: var(--brand-cyan);
+        }
+
         .card-icon.blue {
-            background: rgba(10, 132, 255, 0.15);
-            color: #0a84ff;
+            background-color: rgba(59, 130, 246, 0.15);
+            color: var(--brand-blue);
         }
 
         .card-icon svg {
@@ -787,7 +635,6 @@
         .glass-card h3 {
             font-size: 1.4rem;
             margin-bottom: 12px;
-            color: var(--text-main);
         }
 
         .glass-card p {
@@ -797,13 +644,14 @@
         }
 
         /* =========================================================
-           CSS SHOWCASE MOCKUPS (Replacing Images)
+           SHOWCASE MOCKUPS & RESPONSIVE PREVIEWS
         ========================================================= */
         .showcase-row {
             display: flex;
             align-items: center;
-            gap: 60px;
+            gap: 80px;
             margin-bottom: 100px;
+            width: 100%;
         }
 
         .showcase-row.reverse {
@@ -812,18 +660,19 @@
 
         .showcase-visual {
             flex: 1;
+            width: 100%;
             display: flex;
             justify-content: center;
         }
 
         .showcase-text {
             flex: 1;
+            text-align: left;
         }
 
         .showcase-text h3 {
             font-size: 2.2rem;
             margin-bottom: 16px;
-            color: var(--text-main);
         }
 
         .showcase-text p {
@@ -832,21 +681,27 @@
             line-height: 1.7;
         }
 
+        /* Dropdown Format Preview */
         .mock-dropdown {
             width: 100%;
             max-width: 320px;
-            background: var(--surface-glass);
+            margin: 0 auto;
+            background-color: var(--surface-glass);
             border: 1px solid var(--border-subtle);
             border-radius: 20px;
             padding: 12px;
             box-shadow: var(--shadow-glass);
             transform: rotate(-3deg);
-            transition: transform 0.4s ease;
-            backdrop-filter: blur(40px);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            backdrop-filter: blur(20px);
+            text-align: left;
+            cursor: pointer;
         }
 
         .showcase-visual:hover .mock-dropdown {
             transform: rotate(0) scale(1.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
         }
 
         .mock-option {
@@ -855,29 +710,124 @@
             margin-bottom: 8px;
             font-weight: 600;
             font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .mock-option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
         }
 
         .mock-opt-1 {
-            background: #bf5af2;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(191, 90, 242, 0.3);
+            background: linear-gradient(135deg, var(--brand-indigo), var(--brand-purple));
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mock-opt-1:hover {
+            background: linear-gradient(135deg, #7175fc, #b66af8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         .mock-opt-2 {
-            background: transparent;
+            background-color: transparent;
             color: var(--text-main);
         }
 
+        /* Stems Preview Box */
+        .stem-preview-box {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .stem-row {
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
+            background-color: var(--surface-glass);
+            color: var(--text-main);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-glass);
+            gap: 16px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .stem-row:hover {
+            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .stem-row.active {
+            background-color: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stem-row.active:hover {
+            background-color: rgba(99, 102, 241, 0.15);
+        }
+
+        .stem-badge {
+            font-size: 10px;
+            padding: 5px 12px;
+            background-color: rgba(255, 255, 255, 0.12);
+            color: var(--text-main);
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stem-badge.active {
+            background: linear-gradient(135deg, var(--brand-indigo), var(--brand-purple));
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
         /* =========================================================
-           FAQ SECTION (NEW)
+           FAQ SECTION
         ========================================================= */
         .faq-item {
-            background: var(--surface-glass);
+            background-color: var(--surface-glass);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
             margin-bottom: 16px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: var(--surface-glass-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glass);
+        }
+
+        /* Same fix for FAQ items, which also use .fade-up for reveal animation. */
+        .faq-item.fade-up {
+            transition:
+                opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+                transform 0.4s ease,
+                background-color 0.4s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
         }
 
         .faq-item summary {
@@ -900,7 +850,7 @@
             content: '+';
             font-size: 1.5rem;
             font-weight: 400;
-            color: var(--brand-purple);
+            color: var(--text-main);
             transition: transform 0.3s ease;
         }
 
@@ -919,26 +869,35 @@
         ========================================================= */
         .notice-box {
             max-width: 800px;
-            margin: 0 auto;
-            background: var(--surface-glass);
-            backdrop-filter: blur(40px) saturate(180%);
+            margin: 0 auto 20px auto;
+            background-color: var(--surface-glass);
+            backdrop-filter: blur(20px);
             padding: 32px;
             border-radius: 20px;
-            border-left: 4px solid var(--brand-purple);
+            border-left: 4px solid var(--brand-blue);
             text-align: left;
             box-shadow: var(--shadow-glass);
             border-top: 1px solid var(--border-subtle);
             border-right: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: transform 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .notice-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 45px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--surface-glass-hover);
         }
 
         .notice-box h4 {
-            color: var(--text-main);
             margin-bottom: 12px;
             font-size: 1.15rem;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-main);
         }
 
         .notice-box p {
@@ -948,9 +907,9 @@
 
         footer {
             text-align: center;
-            padding: 60px 24px;
-            border-top: 1px solid var(--border-subtle);
-            margin-top: 40px;
+            padding: 20px 24px 60px 24px;
+            margin-top: 0;
+            border-top: none;
         }
 
         footer p {
@@ -976,34 +935,36 @@
         }
 
         @media (max-width: 768px) {
-            .top-nav {
-                padding: 0 20px;
-                height: 70px;
-            }
-
-            .nav-links a {
-                display: none;
-            }
-
-            /* Hide text links on mobile */
             .section {
-                padding-top: 140px;
+                padding-top: 60px;
+            }
+
+            .hero {
+                padding-top: 80px;
             }
 
             .hero h1 {
                 font-size: 2.8rem;
             }
 
-            .mock-options-row {
-                grid-template-columns: 1fr;
-            }
-
             .showcase-row,
             .showcase-row.reverse {
                 flex-direction: column;
                 text-align: center;
-                gap: 40px;
+                gap: 50px;
                 margin-bottom: 80px;
+            }
+
+            .showcase-text {
+                text-align: center;
+            }
+
+            .btn-download {
+                width: min(100%, 620px);
+            }
+
+            .section-notice {
+                padding: 40px 16px 20px 16px;
             }
         }
     </style>
@@ -1011,7 +972,7 @@
 
 <body>
 
-    <!-- MESH BACKGROUND -->
+    <!-- RICH COLORED MESH BACKGROUND WITH SYMBOLS -->
     <div class="hero-bg">
         <svg class="music-symbol sym-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1019,16 +980,19 @@
             <circle cx="6" cy="18" r="3" />
             <circle cx="18" cy="16" r="3" />
         </svg>
+
         <svg class="music-symbol sym-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="8" cy="18" r="4" />
             <path d="M12 18V2l7 3" />
         </svg>
+
         <svg class="music-symbol sym-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="18" r="4" />
             <path d="M16 18V2" />
         </svg>
+
         <svg class="music-symbol sym-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18V5l12-2v13" />
@@ -1037,54 +1001,33 @@
         </svg>
     </div>
 
-    <!-- TOP NAVIGATION -->
-    <nav class="top-nav fade-up">
-        <a href="#" class="nav-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="6" height="10" x="9" y="7" rx="2" />
-                <path d="M4 22V2" />
-                <path d="M20 22V2" />
-            </svg>
-            <span>Isolix</span>
-        </a>
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#specs">Tech Specs</a>
-            <a href="#faq">FAQ</a>
-            <!-- THEME TOGGLE -->
-            <button class="theme-switch" id="theme-toggle" aria-label="Toggle Theme">
-                <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2"></path>
-                    <path d="M12 20v2"></path>
-                    <path d="m4.93 4.93 1.41 1.41"></path>
-                    <path d="m17.66 17.66 1.41 1.41"></path>
-                    <path d="M2 12h2"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="m6.34 17.66-1.41 1.41"></path>
-                    <path d="m19.07 4.93-1.41 1.41"></path>
-                </svg>
-            </button>
-        </div>
-    </nav>
-
     <!-- HERO SECTION -->
     <section class="section hero">
         <div class="container fade-up">
 
+            <!-- Clean White Logo -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hero-logo-svg">
+                <rect width="6" height="10" x="9" y="7" rx="2" />
+                <path d="M4 22V2" />
+                <path d="M20 22V2" />
+            </svg>
+
             <h2 class="hero-app-name">Isolix</h2>
             <h1>Studio-Grade Stem Separation.</h1>
-            <p>The sleek, intelligent, and fully local media tool for professionals. Extract vocals, drums, bass, and
-                instruments seamlessly without cloud limits or subscriptions.</p>
+            <p>
+                The sleek, intelligent, and fully local media tool for professionals.
+                Extract vocals, drums, bass, and instruments seamlessly without cloud limits or subscriptions.
+            </p>
 
             <div class="download-actions">
-                <a href="#" class="btn-download">
+
+                <!-- Main big download button with Windows Logo -->
+                <a href="https://github.com/yogeshcoodes/Isolix/releases/download/Isolix/Isolix.1.0.0.exe"
+                    class="btn-download">
                     <svg viewBox="0 0 24 24">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" />
-                        <line x1="12" y1="3" x2="12" y2="15" />
+                        <path
+                            d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.801" />
                     </svg>
                     Download for Windows
                 </a>
@@ -1098,6 +1041,7 @@
 
                 <div class="release-history" id="releaseHistory">
                     <div class="release-history-inner">
+
                         <!-- Release V2 -->
                         <div class="release-card">
                             <div class="release-file-icon">
@@ -1106,138 +1050,151 @@
                                     <path d="M14 2v6h6" />
                                 </svg>
                             </div>
+
                             <div class="release-info">
                                 <div class="release-name">isolix_v2.0.0.exe</div>
+
                                 <div class="release-meta">
-                                    <span>245 MB</span> • <span>Latest Release</span> <span
-                                        class="release-current">Current</span>
+                                    <span>245 MB</span> •
+                                    <span>Latest Release</span>
+
+                                    <span class="release-current">
+                                        Current
+                                    </span>
                                 </div>
                             </div>
-                            <a href="#" class="release-download"><svg viewBox="0 0 24 24">
-                                    <path d="M12 3v12" />
-                                    <path d="M7 10l5 5 5-5" />
-                                    <path d="M5 21h14" />
-                                </svg></a>
+
+                            <!-- Small release button -->
+                            <a href="https://github.com/yogeshcoodes/Isolix/releases/download/Isolix/Isolix.1.0.0.exe"
+                                class="release-download" title="Download release">
+
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+
+                            </a>
                         </div>
 
                         <!-- Release V1 -->
                         <div class="release-card">
-                            <div class="release-file-icon"
-                                style="color:var(--text-muted); border-color:var(--border-subtle); background:rgba(128,128,128,0.05);">
+
+                            <div class="release-file-icon old">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                     <path d="M14 2v6h6" />
                                 </svg>
                             </div>
+
                             <div class="release-info">
                                 <div class="release-name">isolix_v1.0.0.exe</div>
+
                                 <div class="release-meta">
-                                    <span>240 MB</span> • <span>Previous Release</span>
+                                    <span>240 MB</span> •
+                                    <span>Previous Release</span>
                                 </div>
                             </div>
-                            <a href="#" class="release-download"><svg viewBox="0 0 24 24">
-                                    <path d="M12 3v12" />
-                                    <path d="M7 10l5 5 5-5" />
-                                    <path d="M5 21h14" />
-                                </svg></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- CSS APP PREVIEW (FULLY VISIBLE TEXT AND ICONS) -->
-            <div class="app-preview-container fade-up">
-                <div class="css-app-mockup">
-                    <div class="mock-header">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <rect width="6" height="10" x="9" y="7" rx="2" />
-                            <path d="M4 22V2" />
-                            <path d="M20 22V2" />
-                        </svg>
-                        <strong>Isolix</strong>
-                    </div>
+                            <!-- Small release button -->
+                            <a href="https://github.com/yogeshcoodes/Isolix/releases/download/Isolix/Isolix.1.0.0.exe"
+                                class="release-download" title="Download release">
 
-                    <div class="mock-drop">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="17 8 12 3 7 8" />
-                            <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
-                        <span><b>Click to upload</b> or drag an audio file here</span>
-                    </div>
-
-                    <div class="mock-options-row">
-                        <!-- Mock Radio Buttons -->
-                        <div class="mock-opt-box">
-                            <span class="mock-label">Separation Mode</span>
-                            <div class="mock-radio">
-                                <div class="mock-circle active"></div> Vocals + Instrumental
-                            </div>
-                            <div class="mock-radio" style="color:var(--text-muted);">
-                                <div class="mock-circle"></div> 6 Stems
-                            </div>
-                        </div>
-
-                        <!-- Mock Dropdown -->
-                        <div class="mock-opt-box">
-                            <span class="mock-label">Output Format</span>
-                            <div class="mock-select">
-                                FLAC — Lossless
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="mock-btn">Extract Audio Stems</div>
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+
+            <!-- Responsive Image Preview -->
+            <div class="app-preview-container fade-up">
+                <img src="./preview.png" alt="Isolix Application Interface" class="app-preview">
+            </div>
+
         </div>
     </section>
 
     <!-- HOW IT WORKS -->
     <section id="features" class="section-auto">
         <div class="container">
-            <h2 class="section-title fade-up">How It Works</h2>
+
+            <h2 class="section-title fade-up">
+                How It Works
+            </h2>
+
             <div class="tutorial-grid">
-                <div class="glass-card fade-up">
+
+                <div class="glass-card card-indigo fade-up">
                     <span class="step-number">1</span>
-                    <div class="card-icon"><svg viewBox="0 0 24 24">
+
+                    <div class="card-icon indigo">
+                        <svg viewBox="0 0 24 24">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="17 8 12 3 7 8" />
                             <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg></div>
-                    <h3>Provide Media</h3>
-                    <p>Simply drag and drop your audio file into the application window. Isolix handles the parsing
-                        instantly.</p>
+                        </svg>
+                    </div>
+
+                    <h3>
+                        Provide Media
+                    </h3>
+
+                    <p>
+                        Simply drag and drop your audio file into the application window.
+                        Isolix handles the parsing instantly.
+                    </p>
                 </div>
-                <div class="glass-card fade-up">
+
+                <div class="glass-card card-purple fade-up">
                     <span class="step-number">2</span>
-                    <div class="card-icon blue"><svg viewBox="0 0 24 24">
+
+                    <div class="card-icon purple">
+                        <svg viewBox="0 0 24 24">
                             <path d="M12 3v18" />
                             <path d="M3 12h18" />
                             <path d="M8 8l8 8" />
                             <path d="M16 8l-8 8" />
-                        </svg></div>
-                    <h3>Select Model</h3>
-                    <p>Choose between standard Vocals + Instrumental separation, or unlock the advanced 6-Stem AI
-                        engine.</p>
+                        </svg>
+                    </div>
+
+                    <h3>
+                        Select Model
+                    </h3>
+
+                    <p>
+                        Choose between standard Vocals + Instrumental separation,
+                        or unlock the advanced 6-Stem AI engine.
+                    </p>
                 </div>
-                <div class="glass-card fade-up">
+
+                <div class="glass-card card-green fade-up">
                     <span class="step-number">3</span>
-                    <div class="card-icon green"><svg viewBox="0 0 24 24">
+
+                    <div class="card-icon green">
+                        <svg viewBox="0 0 24 24">
                             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
                             <polyline points="17 21 17 13 7 13 7 21" />
                             <polyline points="7 3 7 8 15 8" />
-                        </svg></div>
-                    <h3>Extract & Save</h3>
-                    <p>Hit extract and save your stems in pure Lossless FLAC, pristine 16-bit WAV, or lightweight MP3.
+                        </svg>
+                    </div>
+
+                    <h3>
+                        Extract & Save
+                    </h3>
+
+                    <p>
+                        Hit extract and save your stems in pure Lossless FLAC,
+                        pristine 16-bit WAV, or lightweight MP3.
                     </p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -1245,219 +1202,405 @@
     <!-- SHOWCASE SECTION -->
     <section class="section-auto">
         <div class="container">
+
             <!-- Format Selection -->
             <div class="showcase-row fade-up">
+
                 <div class="showcase-visual">
                     <div class="mock-dropdown">
-                        <div class="mock-option mock-opt-1">FLAC — Lossless</div>
-                        <div class="mock-option mock-opt-2">WAV — PCM 16-bit</div>
-                        <div class="mock-option mock-opt-2">MP3 — 320 kbps</div>
+
+                        <div class="mock-option mock-opt-1">
+                            FLAC — Lossless
+                        </div>
+
+                        <div class="mock-option mock-opt-2">
+                            WAV — PCM 16-bit
+                        </div>
+
+                        <div class="mock-option mock-opt-2">
+                            MP3 — 320 kbps
+                        </div>
+
                     </div>
                 </div>
+
                 <div class="showcase-text">
-                    <h3>Pristine Audio Quality</h3>
-                    <p>Never compromise your sound. Isolix natively supports rendering stems into uncompressed FLAC and
-                        WAV formats, ensuring your separated audio is studio-ready the moment it finishes.</p>
+
+                    <h3>
+                        Pristine Audio Quality
+                    </h3>
+
+                    <p>
+                        Never compromise your sound. Isolix natively supports rendering stems
+                        into uncompressed FLAC and WAV formats, ensuring your separated audio
+                        is studio-ready the moment it finishes.
+                    </p>
+
                 </div>
             </div>
 
             <!-- Stems -->
             <div class="showcase-row reverse fade-up">
+
                 <div class="showcase-visual">
-                    <div style="width:100%; max-width:320px; display:flex; flex-direction:column; gap:12px;">
-                        <div
-                            style="padding:14px 18px; border-radius:16px; border:1px solid var(--brand-purple); background:rgba(179,112,252,0.1); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 4px 15px rgba(179,112,252,0.1);">
-                            Vocals <span
-                                style="font-size:10px; padding:4px 10px; background:#bf5af2; border-radius:10px; color:#fff;">READY</span>
+
+                    <div class="stem-preview-box">
+
+                        <div class="stem-row active">
+                            <span>
+                                Vocals
+                            </span>
+
+                            <span class="stem-badge active">
+                                READY
+                            </span>
                         </div>
-                        <div
-                            style="padding:14px 18px; border-radius:16px; border:1px solid var(--border-subtle); background:var(--surface-glass); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between; align-items:center; box-shadow: var(--shadow-glass);">
-                            Drums <span
-                                style="font-size:10px; padding:4px 10px; background:rgba(128,128,128,0.2); border-radius:10px;">READY</span>
+
+                        <div class="stem-row">
+                            <span>
+                                Drums
+                            </span>
+
+                            <span class="stem-badge">
+                                READY
+                            </span>
                         </div>
-                        <div
-                            style="padding:14px 18px; border-radius:16px; border:1px solid var(--border-subtle); background:var(--surface-glass); color:var(--text-main); font-weight:600; display:flex; justify-content:space-between; align-items:center; box-shadow: var(--shadow-glass);">
-                            Bass <span
-                                style="font-size:10px; padding:4px 10px; background:rgba(128,128,128,0.2); border-radius:10px;">READY</span>
+
+                        <div class="stem-row">
+                            <span>
+                                Bass
+                            </span>
+
+                            <span class="stem-badge">
+                                READY
+                            </span>
                         </div>
+
                     </div>
+
                 </div>
+
                 <div class="showcase-text">
-                    <h3>Advanced 6-Stem Engine</h3>
-                    <p>Go beyond basic karaoke tracks. Our local models can isolate Vocals, Drums, Bass, Guitar, Piano,
-                        and Other instruments into dedicated, mixable files perfectly synced to the original track.</p>
+
+                    <h3>
+                        Advanced 6-Stem Engine
+                    </h3>
+
+                    <p>
+                        Go beyond basic karaoke tracks. Our local models can isolate Vocals,
+                        Drums, Bass, Guitar, Piano, and Other instruments into dedicated,
+                        mixable files perfectly synced to the original track.
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
     </section>
 
     <!-- TECH SPECS SECTION -->
     <section id="specs" class="section-auto">
+
         <div class="container">
-            <h2 class="section-title fade-up">Engineered for Performance</h2>
+
+            <h2 class="section-title fade-up">
+                Engineered for Performance
+            </h2>
+
             <div class="features-grid">
-                <div class="glass-card fade-up">
-                    <div class="card-icon"><svg viewBox="0 0 24 24">
+
+                <div class="glass-card card-cyan fade-up">
+
+                    <div class="card-icon cyan">
+                        <svg viewBox="0 0 24 24">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                             <line x1="8" y1="21" x2="16" y2="21"></line>
                             <line x1="12" y1="17" x2="12" y2="21"></line>
-                        </svg></div>
-                    <h3>Optimized for Windows</h3>
-                    <p>Runs smoothly on Windows 10 and 11. Designed to be highly efficient, running perfectly on
-                        standard everyday processors and hardware configurations.</p>
+                        </svg>
+                    </div>
+
+                    <h3>
+                        Optimized for Windows
+                    </h3>
+
+                    <p>
+                        Runs smoothly on Windows 10 and 11. Designed to be highly efficient,
+                        running perfectly on standard everyday processors and hardware configurations.
+                    </p>
+
                 </div>
-                <div class="glass-card fade-up">
-                    <div class="card-icon blue"><svg viewBox="0 0 24 24">
+
+                <div class="glass-card card-blue fade-up">
+
+                    <div class="card-icon blue">
+                        <svg viewBox="0 0 24 24">
                             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg></div>
-                    <h3>No Subscriptions</h3>
-                    <p>Buy once or use for free forever. You aren't charged per minute of audio processed because Isolix
-                        uses your own machine's computing power.</p>
+                        </svg>
+                    </div>
+
+                    <h3>
+                        No Subscriptions
+                    </h3>
+
+                    <p>
+                        Buy once or use for free forever. You aren't charged per minute of audio processed because
+                        Isolix uses your own machine's computing power.
+                    </p>
+
                 </div>
-                <div class="glass-card fade-up">
-                    <div class="card-icon green"><svg viewBox="0 0 24 24">
+
+                <div class="glass-card card-green fade-up">
+
+                    <div class="card-icon green">
+                        <svg viewBox="0 0 24 24">
                             <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
                             <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
-                        </svg></div>
-                    <h3>Memory Efficient</h3>
-                    <p>The core engine scales dynamically based on your available RAM. Smooth and fast processing is
-                        guaranteed on systems with 8GB or more memory.</p>
+                        </svg>
+                    </div>
+
+                    <h3>
+                        Memory Efficient
+                    </h3>
+
+                    <p>
+                        The core engine scales dynamically based on your available RAM.
+                        Smooth and fast processing is guaranteed on systems with 8GB or more memory.
+                    </p>
+
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- FAQ SECTION -->
     <section id="faq" class="section-auto">
+
         <div class="container">
-            <h2 class="section-title fade-up">Frequently Asked Questions</h2>
+
+            <h2 class="section-title fade-up">
+                Frequently Asked Questions
+            </h2>
+
             <div style="max-width: 800px; margin: 0 auto;">
+
                 <details class="faq-item fade-up">
-                    <summary>Do I need an active internet connection to use Isolix?</summary>
-                    <p>No! Once you download the application and its bundled models, Isolix runs 100% offline on your
-                        local machine. No tracking, no uploads, absolute privacy.</p>
+
+                    <summary>
+                        Do I need an active internet connection to use Isolix?
+                    </summary>
+
+                    <p>
+                        No! Once you download the application and its bundled models,
+                        Isolix runs 100% offline on your local machine.
+                        No tracking, no uploads, absolute privacy.
+                    </p>
+
                 </details>
+
                 <details class="faq-item fade-up">
-                    <summary>What audio formats are supported for uploading?</summary>
-                    <p>Isolix supports all major audio formats including MP3, WAV, FLAC, AAC, OGG, and M4A. If your OS
-                        can play it, Isolix can likely split it.</p>
+
+                    <summary>
+                        What audio formats are supported for uploading?
+                    </summary>
+
+                    <p>
+                        Isolix supports all major audio formats including MP3, WAV, FLAC,
+                        AAC, OGG, and M4A. If your OS can play it, Isolix can likely split it.
+                    </p>
+
                 </details>
+
                 <details class="faq-item fade-up">
-                    <summary>How long does it take to process a song?</summary>
-                    <p>Processing time depends purely on your computer's CPU and RAM. On a standard modern Intel i5
-                        processor with adequate RAM, a standard 3-minute song typically takes less than 2 minutes to
-                        separate.</p>
+
+                    <summary>
+                        How long does it take to process a song?
+                    </summary>
+
+                    <p>
+                        Processing time depends purely on your computer's CPU and RAM.
+                        On a standard modern Intel i5 processor with adequate RAM,
+                        a standard 3-minute song typically takes less than 2 minutes to separate.
+                    </p>
+
                 </details>
+
             </div>
         </div>
     </section>
 
     <!-- NOTICES -->
-    <section class="section-auto">
+    <section class="section-notice">
+
         <div class="container fade-up">
+
             <div class="notice-box">
+
                 <h4>
-                    <svg style="width:22px;height:22px;fill:var(--brand-purple);" viewBox="0 0 24 24">
+
+                    <svg style="width:22px;height:22px;fill:var(--brand-blue);" viewBox="0 0 24 24">
                         <path
                             d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
                     </svg>
+
                     Security & Architecture Notice
+
                 </h4>
-                <p>Isolix is an independent, locally-hosted application. Because it is developed independently rather
+
+                <p>
+                    Isolix is an independent, locally-hosted application. Because it is developed independently rather
                     than by a massive registered corporation, it does not carry a paid digital Microsoft signature. As a
                     result, Windows Defender or web browsers may occasionally display an "unrecognized app" warning.
-                    This is entirely normal for unsigned software. To open the app, simply click <strong>"More
-                        info"</strong> and then <strong>"Run anyway"</strong>.</p>
+                    This is entirely normal for unsigned software. To open the app, simply click
+                    <strong>"More info"</strong> and then <strong>"Run anyway"</strong>.
+                </p>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p><strong>Legal & Fair Use Disclaimer:</strong> Isolix acts strictly as an offline audio manipulation tool. We
-            do not host, bypass DRM, or distribute any copyrighted media. By using this tool, you take full personal and
-            legal responsibility for the files you process and save. Please respect copyright laws and only process
-            content you have the legal right to alter.</p>
-        <p style="margin-top: 24px; font-weight: 600;">&copy; 2026 Isolix Audio Tools. Built with purpose.</p>
+
+        <p>
+            <strong>
+                Legal & Fair Use Disclaimer:
+            </strong>
+
+            Isolix acts strictly as an offline audio manipulation tool.
+            We do not host, bypass DRM, or distribute any copyrighted media.
+            By using this tool, you take full personal and legal responsibility
+            for the files you process and save.
+            Please respect copyright laws and only process content you have the legal right to alter.
+        </p>
+
+        <p style="margin-top: 24px; font-weight: 600;">
+            &copy; 2026 Isolix Audio Tools. Built with purpose.
+        </p>
+
     </footer>
 
     <!-- JAVASCRIPT -->
     <script>
+
         // 1. SCROLL RESTORATION
-        if ("scrollRestoration" in history) { history.scrollRestoration = "manual"; }
+        if ("scrollRestoration" in history) {
+            history.scrollRestoration = "manual";
+        }
+
         window.scrollTo(0, 0);
 
         document.addEventListener("DOMContentLoaded", () => {
+
             window.scrollTo(0, 0);
 
-            // 2. THEME TOGGLE LOGIC (Mirrors App Logic)
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            const htmlElement = document.documentElement;
+            // 2. RELEASE HISTORY TOGGLE
+            const releaseToggle =
+                document.getElementById("releaseHistoryToggle");
 
-            const sunIcon = `<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>`;
-            const moonIcon = `<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>`;
-
-            // Check if user has an Isolix theme saved from the app!
-            const savedTheme = localStorage.getItem('isolix_theme') || 'dark';
-            htmlElement.setAttribute('data-theme', savedTheme);
-            themeIcon.innerHTML = savedTheme === 'dark' ? sunIcon : moonIcon;
-
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = htmlElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                htmlElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('isolix_theme', newTheme);
-
-                themeIcon.style.transform = 'scale(0)';
-                setTimeout(() => {
-                    themeIcon.innerHTML = newTheme === 'dark' ? sunIcon : moonIcon;
-                    themeIcon.style.transform = 'scale(1)';
-                }, 150);
-            });
-
-            // 3. RELEASE HISTORY TOGGLE
-            const releaseToggle = document.getElementById("releaseHistoryToggle");
-            const releaseHistory = document.getElementById("releaseHistory");
+            const releaseHistory =
+                document.getElementById("releaseHistory");
 
             releaseToggle.addEventListener("click", () => {
-                const isOpen = releaseHistory.classList.toggle("open");
-                releaseToggle.classList.toggle("active", isOpen);
-                releaseToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+                const isOpen =
+                    releaseHistory.classList.toggle("open");
+
+                releaseToggle.classList.toggle(
+                    "active",
+                    isOpen
+                );
+
+                releaseToggle.setAttribute(
+                    "aria-expanded",
+                    isOpen ? "true" : "false"
+                );
+
             });
 
-            // 4. SCROLL ANIMATIONS
-            const observerOptions = { root: null, rootMargin: "0px", threshold: 0.15 };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        observer.unobserve(entry.target);
-                    }
+            // 3. SCROLL ANIMATIONS
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.15
+            };
+
+            const observer =
+                new IntersectionObserver(
+                    (entries, observer) => {
+
+                        entries.forEach(entry => {
+
+                            if (entry.isIntersecting) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        });
+
+                    },
+                    observerOptions
+                );
+
+            document
+                .querySelectorAll(".fade-up")
+                .forEach(element => {
+
+                    observer.observe(element);
+
                 });
-            }, observerOptions);
 
-            document.querySelectorAll(".fade-up").forEach(element => {
-                observer.observe(element);
-            });
+            // Allow clicking outside FAQ to close
+            const details =
+                document.querySelectorAll("details");
 
-            // Allow clicking outside FAQ to close (optional nice-to-have UI)
-            const details = document.querySelectorAll("details");
             details.forEach((targetDetail) => {
-                targetDetail.addEventListener("click", () => {
-                    details.forEach((detail) => {
-                        if (detail !== targetDetail) {
-                            detail.removeAttribute("open");
-                        }
-                    });
-                });
+
+                targetDetail.addEventListener(
+                    "click",
+                    () => {
+
+                        details.forEach((detail) => {
+
+                            if (detail !== targetDetail) {
+
+                                detail.removeAttribute(
+                                    "open"
+                                );
+
+                            }
+
+                        });
+
+                    }
+                );
+
             });
+
         });
 
-        window.addEventListener("pageshow", () => window.scrollTo(0, 0));
-        window.addEventListener("load", () => window.scrollTo(0, 0));
+        window.addEventListener(
+            "pageshow",
+            () => window.scrollTo(0, 0)
+        );
+
+        window.addEventListener(
+            "load",
+            () => window.scrollTo(0, 0)
+        );
+
     </script>
+
 </body>
 
 </html>
