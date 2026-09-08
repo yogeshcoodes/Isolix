@@ -829,6 +829,36 @@
             --stem-accent-soft: rgba(168, 85, 247, 0.14);
             --stem-accent-border: rgba(168, 85, 247, 0.34);
             --stem-accent-strong: rgba(168, 85, 247, 0.24);
+            --stem-progress: 0turn;
+            position: relative;
+            isolation: isolate;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            overflow: hidden;
+        }
+
+        .stem-row::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            padding: 1.5px;
+            border-radius: inherit;
+            background: conic-gradient(from -90deg,
+                    var(--stem-accent) 0turn,
+                    var(--stem-accent) var(--stem-progress),
+                    transparent var(--stem-progress),
+                    transparent 1turn);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .stem-row.is-playing::before,
+        .stem-row.is-loading::before {
+            opacity: 1;
         }
 
         .stem-row.stem-original {
@@ -890,14 +920,12 @@
         .stem-row.is-playing,
         .stem-row.is-loading {
             background-color: var(--stem-accent-soft);
-            border-color: var(--stem-accent-border);
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
         }
 
         .stem-row.is-playing:hover,
         .stem-row.is-loading:hover {
             background-color: var(--stem-accent-strong);
-            border-color: var(--stem-accent-border);
         }
 
         .stem-name {
@@ -905,6 +933,8 @@
             align-items: center;
             gap: 12px;
             min-width: 0;
+            position: relative;
+            z-index: 3;
         }
 
         .stem-dot {
@@ -936,6 +966,7 @@
             color: var(--stem-accent);
             cursor: pointer;
             position: relative;
+            z-index: 3;
             transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
         }
 
@@ -980,9 +1011,12 @@
             height: 18px;
             fill: none;
             stroke: currentColor;
-            stroke-width: 2.5;
+            stroke-width: 2.6;
             stroke-linecap: round;
-            animation: stem-spin 0.85s linear infinite;
+            stroke-dasharray: 30 20;
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: stem-spin 0.75s linear infinite;
         }
 
         .stem-play:disabled {
@@ -990,14 +1024,12 @@
         }
 
         @keyframes stem-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
             to {
                 transform: rotate(360deg);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .stem-row.is-loading .stem-play .loading-icon {
-                animation: none;
             }
         }
 
@@ -1924,12 +1956,13 @@
 
             // 4. STEM DEMO AUDIO PLAYERS
             // Audio is loaded only after the user clicks Play.
-            // This keeps page load light and lets the browser progressively buffer the demo.
+            // GitHub Pages serves these files as static media, so the browser handles
+            // progressive buffering/range requests while the UI reacts to buffering events.
             const stemRows = document.querySelectorAll(".stem-row[data-stem]");
             const DEMO_SOURCES = {
                 original: "./original.mp3",
                 vocals: "./vocals.mp3",
-                drums: "./drums.mp3",
+                drums: "./drums",
                 bass: "./bass.mp3",
                 guitar: "./guitar.mp3",
                 piano: "./piano.mp3",
@@ -1937,13 +1970,17 @@
                 instrumental: "./instrumental.mp3"
             };
 
-            const START_BUFFER_SECONDS = 2;
             let activeStemAudio = null;
             let activeStemRow = null;
-            let bufferWatchTimer = null;
 
             const getButton = row => row?.querySelector(".stem-play");
             const getLabel = row => row?.querySelector(".stem-label")?.textContent.trim() || "stem";
+
+            const setProgress = (row, progress) => {
+                if (!row) return;
+                const safeProgress = Math.max(0, Math.min(1, Number(progress) || 0));
+                row.style.setProperty("--stem-progress", `${safeProgress}turn`);
+            };
 
             const setButtonState = (row, state) => {
                 if (!row) return;
@@ -1965,16 +2002,13 @@
                 }
             };
 
-            const clearBufferWatch = () => {
-                if (bufferWatchTimer) {
-                    clearInterval(bufferWatchTimer);
-                    bufferWatchTimer = null;
-                }
+            const resetRow = row => {
+                if (!row) return;
+                setButtonState(row, "idle");
+                setProgress(row, 0);
             };
 
             const stopActiveStem = () => {
-                clearBufferWatch();
-
                 if (activeStemAudio) {
                     activeStemAudio.pause();
                     activeStemAudio.removeAttribute("src");
@@ -1983,53 +2017,9 @@
                 }
 
                 if (activeStemRow) {
-                    setButtonState(activeStemRow, "idle");
+                    resetRow(activeStemRow);
                     activeStemRow = null;
                 }
-            };
-
-            const bufferedAhead = audio => {
-                if (!audio || !Number.isFinite(audio.currentTime)) return 0;
-
-                for (let i = 0; i < audio.buffered.length; i++) {
-                    const start = audio.buffered.start(i);
-                    const end = audio.buffered.end(i);
-                    if (audio.currentTime >= start && audio.currentTime <= end) {
-                        return Math.max(0, end - audio.currentTime);
-                    }
-                }
-
-                return 0;
-            };
-
-            const waitForStartupBuffer = (audio, row, button) => {
-                setButtonState(row, "loading");
-
-                const tryStart = () => {
-                    if (activeStemAudio !== audio) return;
-
-                    const duration = audio.duration;
-                    const buffered = bufferedAhead(audio);
-                    const enoughBuffer = buffered >= START_BUFFER_SECONDS ||
-                        (Number.isFinite(duration) && duration > 0 && buffered >= Math.min(START_BUFFER_SECONDS, duration));
-
-                    if (!enoughBuffer) return;
-
-                    clearBufferWatch();
-
-                    audio.play().then(() => {
-                        if (activeStemAudio === audio) {
-                            setButtonState(row, "playing");
-                        }
-                    }).catch(() => {
-                        if (activeStemAudio === audio) {
-                            setButtonState(row, "idle");
-                        }
-                    });
-                };
-
-                bufferWatchTimer = setInterval(tryStart, 100);
-                tryStart();
             };
 
             stemRows.forEach(row => {
@@ -2043,17 +2033,11 @@
 
                     if (activeStemRow === row && activeStemAudio) {
                         if (activeStemAudio.paused) {
-                            if (bufferedAhead(activeStemAudio) < 0.5) {
-                                waitForStartupBuffer(activeStemAudio, row, button);
-                            } else {
-                                activeStemAudio.play().then(() => {
-                                    if (activeStemAudio) {
-                                        setButtonState(row, "playing");
-                                    }
-                                }).catch(() => { });
-                            }
+                            setButtonState(row, "loading");
+                            activeStemAudio.play().catch(() => {
+                                resetRow(row);
+                            });
                         } else {
-                            clearBufferWatch();
                             activeStemAudio.pause();
                             setButtonState(row, "idle");
                         }
@@ -2063,54 +2047,40 @@
                     stopActiveStem();
 
                     const audio = new Audio();
-                    audio.preload = "none";
+                    audio.preload = "auto";
                     audio.src = DEMO_SOURCES[stemKey];
                     audio.setAttribute("playsinline", "");
                     activeStemAudio = audio;
                     activeStemRow = row;
+                    setProgress(row, 0);
+                    setButtonState(row, "loading");
 
                     const fail = () => {
                         if (activeStemAudio !== audio) return;
-                        clearBufferWatch();
-                        setButtonState(row, "idle");
+                        resetRow(row);
+                        audio.pause();
                         activeStemAudio = null;
                         activeStemRow = null;
                     };
+
+                    audio.addEventListener("loadedmetadata", () => {
+                        if (activeStemAudio !== audio) return;
+                        setProgress(row, 0);
+                    });
+
+                    audio.addEventListener("timeupdate", () => {
+                        if (activeStemAudio !== audio) return;
+                        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+                            setProgress(row, audio.currentTime / audio.duration);
+                        }
+                    });
 
                     audio.addEventListener("loadstart", () => {
                         if (activeStemAudio === audio) setButtonState(row, "loading");
                     });
 
-                    audio.addEventListener("progress", () => {
-                        if (activeStemAudio === audio && audio.paused) {
-                            setButtonState(row, "loading");
-                        }
-                    });
-
-                    audio.addEventListener("canplay", () => {
-                        if (activeStemAudio === audio && audio.paused) {
-                            waitForStartupBuffer(audio, row, button);
-                        }
-                    });
-
-                    audio.addEventListener("playing", () => {
-                        if (activeStemAudio === audio) {
-                            clearBufferWatch();
-                            setButtonState(row, "playing");
-                        }
-                    });
-
-                    audio.addEventListener("pause", () => {
-                        if (activeStemAudio === audio && !audio.ended) {
-                            clearBufferWatch();
-                            setButtonState(row, "idle");
-                        }
-                    });
-
                     audio.addEventListener("waiting", () => {
-                        if (activeStemAudio === audio) {
-                            setButtonState(row, "loading");
-                        }
+                        if (activeStemAudio === audio) setButtonState(row, "loading");
                     });
 
                     audio.addEventListener("stalled", () => {
@@ -2119,15 +2089,26 @@
                         }
                     });
 
-                    audio.addEventListener("canplaythrough", () => {
-                        if (activeStemAudio === audio && audio.paused) {
-                            waitForStartupBuffer(audio, row, button);
+                    audio.addEventListener("canplay", () => {
+                        if (activeStemAudio !== audio || !audio.paused) return;
+                        audio.play().catch(() => {
+                            if (activeStemAudio === audio) resetRow(row);
+                        });
+                    });
+
+                    audio.addEventListener("playing", () => {
+                        if (activeStemAudio === audio) setButtonState(row, "playing");
+                    });
+
+                    audio.addEventListener("pause", () => {
+                        if (activeStemAudio === audio && !audio.ended) {
+                            setButtonState(row, "idle");
                         }
                     });
 
                     audio.addEventListener("ended", () => {
                         if (activeStemAudio !== audio) return;
-                        clearBufferWatch();
+                        setProgress(row, 1);
                         setButtonState(row, "idle");
                         activeStemAudio = null;
                         activeStemRow = null;
@@ -2135,11 +2116,9 @@
 
                     audio.addEventListener("error", fail);
 
-                    setButtonState(row, "loading");
-
                     try {
                         audio.load();
-                    } catch (error) {
+                    } catch {
                         fail();
                     }
                 });
