@@ -53,8 +53,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, 
-            BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system,
+                BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
             scroll-behavior: smooth;
             user-select: none;
@@ -507,7 +507,7 @@
         .preview-tab {
             display: block;
         }
-        
+
         .preview-phone {
             display: none;
             max-width: 300px;
@@ -517,6 +517,7 @@
             .preview-tab {
                 display: none;
             }
+
             .preview-phone {
                 display: block;
             }
@@ -879,13 +880,22 @@
             --stem-accent-strong: rgba(52, 211, 153, 0.24);
         }
 
-        .stem-row.is-playing {
+        .stem-row.stem-instrumental {
+            --stem-accent: #f472b6;
+            --stem-accent-soft: rgba(244, 114, 182, 0.14);
+            --stem-accent-border: rgba(244, 114, 182, 0.34);
+            --stem-accent-strong: rgba(244, 114, 182, 0.24);
+        }
+
+        .stem-row.is-playing,
+        .stem-row.is-loading {
             background-color: var(--stem-accent-soft);
             border-color: var(--stem-accent-border);
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
         }
 
-        .stem-row.is-playing:hover {
+        .stem-row.is-playing:hover,
+        .stem-row.is-loading:hover {
             background-color: var(--stem-accent-strong);
             border-color: var(--stem-accent-border);
         }
@@ -925,6 +935,7 @@
             background: var(--stem-accent-soft);
             color: var(--stem-accent);
             cursor: pointer;
+            position: relative;
             transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
         }
 
@@ -945,7 +956,8 @@
             stroke: none;
         }
 
-        .stem-play .pause-icon {
+        .stem-play .pause-icon,
+        .stem-play .loading-icon {
             display: none;
         }
 
@@ -957,20 +969,39 @@
             display: block;
         }
 
-        .stem-file {
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            font-weight: 600;
-            margin-left: auto;
-            margin-right: 2px;
-            opacity: 0.85;
+        .stem-row.is-loading .stem-play .play-icon,
+        .stem-row.is-loading .stem-play .pause-icon {
+            display: none;
+        }
+
+        .stem-row.is-loading .stem-play .loading-icon {
+            display: block;
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            animation: stem-spin 0.85s linear infinite;
+        }
+
+        .stem-play:disabled {
+            cursor: wait;
+        }
+
+        @keyframes stem-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .stem-row.is-loading .stem-play .loading-icon {
+                animation: none;
+            }
         }
 
         @media (max-width: 480px) {
-            .stem-file {
-                display: none;
-            }
-
             .stem-row {
                 gap: 10px;
                 padding: 13px 14px;
@@ -1299,7 +1330,8 @@
             <!-- Responsive Image Preview (Tab & Phone) -->
             <div class="app-preview-container fade-up">
                 <img src="./preview-tab.png" alt="Isolix Application Tablet Interface" class="app-preview preview-tab">
-                <img src="./preview-phone.png" alt="Isolix Application Phone Interface" class="app-preview preview-phone">
+                <img src="./preview-phone.png" alt="Isolix Application Phone Interface"
+                    class="app-preview preview-phone">
             </div>
 
         </div>
@@ -1430,135 +1462,178 @@
 
                     <div class="stem-preview-box">
 
-                        <div class="stem-row stem-original" data-audio="original.mp3">
+                        <div class="stem-row stem-original" data-stem="original">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Original</span>
                             </div>
 
-                            <span class="stem-file">original.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Original">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
                                 </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="stem-row stem-vocals" data-audio="vocals.mp3">
+                        <div class="stem-row stem-vocals" data-stem="vocals">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Vocals</span>
                             </div>
 
-                            <span class="stem-file">vocals.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Vocals">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
                                 </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="stem-row stem-drums" data-audio="drums.mp3">
+                        <div class="stem-row stem-drums" data-stem="drums">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Drums</span>
                             </div>
 
-                            <span class="stem-file">drums.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Drums">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
                                 </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="stem-row stem-bass" data-audio="bass.mp3">
+                        <div class="stem-row stem-bass" data-stem="bass">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Bass</span>
                             </div>
 
-                            <span class="stem-file">bass.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Bass">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
                                 </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="stem-row stem-guitar" data-audio="guitar.mp3">
+                        <div class="stem-row stem-guitar" data-stem="guitar">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Guitar</span>
                             </div>
 
-                            <span class="stem-file">guitar.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Guitar">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
                                 </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="stem-row stem-piano" data-audio="piano.mp3">
+                        <div class="stem-row stem-piano" data-stem="piano">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Piano</span>
                             </div>
 
-                            <span class="stem-file">piano.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Piano">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
                                 </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="stem-row stem-other" data-audio="other.mp3">
+                        <div class="stem-row stem-other" data-stem="other">
                             <div class="stem-name">
                                 <span class="stem-dot"></span>
                                 <span class="stem-label">Other</span>
                             </div>
 
-                            <span class="stem-file">other.mp3</span>
-
                             <button type="button" class="stem-play" aria-label="Play Other">
                                 <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z"></path>
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
                                 </svg>
                                 <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
                                     <rect x="6" y="5" width="4" height="14" rx="1"></rect>
                                     <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="stem-row stem-instrumental" data-stem="instrumental">
+                            <div class="stem-name">
+                                <span class="stem-dot"></span>
+                                <span class="stem-label">Instrumental</span>
+                            </div>
+
+                            <button type="button" class="stem-play" aria-label="Play Instrumental">
+                                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M8 5.14v13.72c0 .78.86 1.26 1.54.86l10.04-6.86a1 1 0 0 0 0-1.72L9.54 4.28A1 1 0 0 0 8 5.14Z">
+                                    </path>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                                    <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                                </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="8"></circle>
                                 </svg>
                             </button>
                         </div>
@@ -1848,87 +1923,225 @@
                 });
 
             // 4. STEM DEMO AUDIO PLAYERS
-            const stemRows = document.querySelectorAll(".stem-row[data-audio]");
+            // Audio is loaded only after the user clicks Play.
+            // This keeps page load light and lets the browser progressively buffer the demo.
+            const stemRows = document.querySelectorAll(".stem-row[data-stem]");
+            const DEMO_SOURCES = {
+                original: "./original.mp3",
+                vocals: "./vocals.mp3",
+                drums: "./drums.mp3",
+                bass: "./bass.mp3",
+                guitar: "./guitar.mp3",
+                piano: "./piano.mp3",
+                other: "./other.mp3",
+                instrumental: "./instrumental.mp3"
+            };
+
+            const START_BUFFER_SECONDS = 2;
             let activeStemAudio = null;
             let activeStemRow = null;
+            let bufferWatchTimer = null;
+
+            const getButton = row => row?.querySelector(".stem-play");
+            const getLabel = row => row?.querySelector(".stem-label")?.textContent.trim() || "stem";
+
+            const setButtonState = (row, state) => {
+                if (!row) return;
+
+                const button = getButton(row);
+                const label = getLabel(row);
+
+                row.classList.toggle("is-playing", state === "playing");
+                row.classList.toggle("is-loading", state === "loading");
+
+                if (button) {
+                    button.disabled = state === "loading";
+                    button.setAttribute(
+                        "aria-label",
+                        state === "playing" ? `Pause ${label}` :
+                            state === "loading" ? `Loading ${label}` :
+                                `Play ${label}`
+                    );
+                }
+            };
+
+            const clearBufferWatch = () => {
+                if (bufferWatchTimer) {
+                    clearInterval(bufferWatchTimer);
+                    bufferWatchTimer = null;
+                }
+            };
 
             const stopActiveStem = () => {
+                clearBufferWatch();
+
                 if (activeStemAudio) {
                     activeStemAudio.pause();
-                    activeStemAudio.currentTime = 0;
+                    activeStemAudio.removeAttribute("src");
+                    activeStemAudio.load();
                     activeStemAudio = null;
                 }
 
                 if (activeStemRow) {
-                    activeStemRow.classList.remove("is-playing");
-                    const button = activeStemRow.querySelector(".stem-play");
-                    if (button) {
-                        button.setAttribute(
-                            "aria-label",
-                            `Play ${activeStemRow.querySelector(".stem-label")?.textContent.trim() || "stem"}`
-                        );
-                    }
+                    setButtonState(activeStemRow, "idle");
                     activeStemRow = null;
                 }
             };
 
-            stemRows.forEach(row => {
-                const button = row.querySelector(".stem-play");
-                const fileName = row.dataset.audio;
-                const label = row.querySelector(".stem-label")?.textContent.trim() || "stem";
+            const bufferedAhead = audio => {
+                if (!audio || !Number.isFinite(audio.currentTime)) return 0;
 
-                if (!button || !fileName) {
-                    return;
+                for (let i = 0; i < audio.buffered.length; i++) {
+                    const start = audio.buffered.start(i);
+                    const end = audio.buffered.end(i);
+                    if (audio.currentTime >= start && audio.currentTime <= end) {
+                        return Math.max(0, end - audio.currentTime);
+                    }
                 }
 
-                button.addEventListener("click", (event) => {
+                return 0;
+            };
+
+            const waitForStartupBuffer = (audio, row, button) => {
+                setButtonState(row, "loading");
+
+                const tryStart = () => {
+                    if (activeStemAudio !== audio) return;
+
+                    const duration = audio.duration;
+                    const buffered = bufferedAhead(audio);
+                    const enoughBuffer = buffered >= START_BUFFER_SECONDS ||
+                        (Number.isFinite(duration) && duration > 0 && buffered >= Math.min(START_BUFFER_SECONDS, duration));
+
+                    if (!enoughBuffer) return;
+
+                    clearBufferWatch();
+
+                    audio.play().then(() => {
+                        if (activeStemAudio === audio) {
+                            setButtonState(row, "playing");
+                        }
+                    }).catch(() => {
+                        if (activeStemAudio === audio) {
+                            setButtonState(row, "idle");
+                        }
+                    });
+                };
+
+                bufferWatchTimer = setInterval(tryStart, 100);
+                tryStart();
+            };
+
+            stemRows.forEach(row => {
+                const button = getButton(row);
+                const stemKey = row.dataset.stem;
+
+                if (!button || !stemKey || !DEMO_SOURCES[stemKey]) return;
+
+                button.addEventListener("click", event => {
                     event.stopPropagation();
 
                     if (activeStemRow === row && activeStemAudio) {
                         if (activeStemAudio.paused) {
-                            activeStemAudio.play().catch(() => {});
-                            row.classList.add("is-playing");
-                            button.setAttribute("aria-label", `Pause ${label}`);
+                            if (bufferedAhead(activeStemAudio) < 0.5) {
+                                waitForStartupBuffer(activeStemAudio, row, button);
+                            } else {
+                                activeStemAudio.play().then(() => {
+                                    if (activeStemAudio) {
+                                        setButtonState(row, "playing");
+                                    }
+                                }).catch(() => { });
+                            }
                         } else {
+                            clearBufferWatch();
                             activeStemAudio.pause();
-                            row.classList.remove("is-playing");
-                            button.setAttribute("aria-label", `Play ${label}`);
+                            setButtonState(row, "idle");
                         }
                         return;
                     }
 
                     stopActiveStem();
 
-                    const audio = new Audio(fileName);
+                    const audio = new Audio();
+                    audio.preload = "none";
+                    audio.src = DEMO_SOURCES[stemKey];
+                    audio.setAttribute("playsinline", "");
                     activeStemAudio = audio;
                     activeStemRow = row;
 
-                    audio.preload = "metadata";
+                    const fail = () => {
+                        if (activeStemAudio !== audio) return;
+                        clearBufferWatch();
+                        setButtonState(row, "idle");
+                        activeStemAudio = null;
+                        activeStemRow = null;
+                    };
+
+                    audio.addEventListener("loadstart", () => {
+                        if (activeStemAudio === audio) setButtonState(row, "loading");
+                    });
+
+                    audio.addEventListener("progress", () => {
+                        if (activeStemAudio === audio && audio.paused) {
+                            setButtonState(row, "loading");
+                        }
+                    });
+
+                    audio.addEventListener("canplay", () => {
+                        if (activeStemAudio === audio && audio.paused) {
+                            waitForStartupBuffer(audio, row, button);
+                        }
+                    });
+
+                    audio.addEventListener("playing", () => {
+                        if (activeStemAudio === audio) {
+                            clearBufferWatch();
+                            setButtonState(row, "playing");
+                        }
+                    });
+
+                    audio.addEventListener("pause", () => {
+                        if (activeStemAudio === audio && !audio.ended) {
+                            clearBufferWatch();
+                            setButtonState(row, "idle");
+                        }
+                    });
+
+                    audio.addEventListener("waiting", () => {
+                        if (activeStemAudio === audio) {
+                            setButtonState(row, "loading");
+                        }
+                    });
+
+                    audio.addEventListener("stalled", () => {
+                        if (activeStemAudio === audio && !audio.paused) {
+                            setButtonState(row, "loading");
+                        }
+                    });
+
+                    audio.addEventListener("canplaythrough", () => {
+                        if (activeStemAudio === audio && audio.paused) {
+                            waitForStartupBuffer(audio, row, button);
+                        }
+                    });
+
                     audio.addEventListener("ended", () => {
-                        if (activeStemAudio === audio) {
-                            row.classList.remove("is-playing");
-                            button.setAttribute("aria-label", `Play ${label}`);
-                            activeStemAudio = null;
-                            activeStemRow = null;
-                        }
+                        if (activeStemAudio !== audio) return;
+                        clearBufferWatch();
+                        setButtonState(row, "idle");
+                        activeStemAudio = null;
+                        activeStemRow = null;
                     });
 
-                    audio.addEventListener("error", () => {
-                        if (activeStemAudio === audio) {
-                            row.classList.remove("is-playing");
-                            button.setAttribute("aria-label", `Play ${label}`);
-                            activeStemAudio = null;
-                            activeStemRow = null;
-                        }
-                    });
+                    audio.addEventListener("error", fail);
 
-                    audio.play().then(() => {
-                        row.classList.add("is-playing");
-                        button.setAttribute("aria-label", `Pause ${label}`);
-                    }).catch(() => {
-                        row.classList.remove("is-playing");
-                        button.setAttribute("aria-label", `Play ${label}`);
-                    });
+                    setButtonState(row, "loading");
+
+                    try {
+                        audio.load();
+                    } catch (error) {
+                        fail();
+                    }
                 });
             });
 
